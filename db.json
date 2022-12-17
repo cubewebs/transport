@@ -1,0 +1,41 @@
+{
+  "orders": [
+    {
+      "id": 1,
+      "goods": "json-server",
+      "sender": "typicode",
+	  "receiver": "typicode"
+    }
+  ],
+  "goods": [
+    {
+      "id": 1,
+      "name": "some comment",
+      "individualWeight": 1
+    }
+  ],
+  "senders": {
+	"id": 1,
+    "firstName": "typicode",
+    "lastName": "typicode",
+    "email": "typicode",
+    "phoneNumber": "typicode",
+    "address": "typicode",
+    "city": "typicode",
+    "province": "typicode",
+    "country": "typicode",
+    "zipCode": "typicode"
+  },
+  "receivers": {
+	"id": 1,
+    "firstName": "typicode",
+    "lastName": "typicode",
+    "email": "typicode",
+    "phoneNumber": "typicode",
+    "address": "typicode",
+    "city": "typicode",
+    "province": "typicode",
+    "country": "typicode",
+    "zipCode": "typicode"
+  }
+}
