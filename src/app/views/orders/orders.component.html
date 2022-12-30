@@ -1,1 +1,27 @@
-<p>orders works!</p>
+<p-card class="p-5">
+    <ng-template pTemplate="header">
+        <h3>All Orders</h3>
+    </ng-template>
+    <p-table [value]="orders$ | async" [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>order ID</th>
+                <th>Sender Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-order>
+            <tr>
+                <td>{{order.id}}</td>
+                <td>{{order.sender.firstName}} {{order.sender.lastName}}</td>
+                <td>{{order.sender.email}}</td>
+                <td>{{order.sender.phoneNumber}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <ng-template pTemplate="footer">
+        <small>Clic on the order id to edit the order</small>
+    </ng-template>
+</p-card>
+

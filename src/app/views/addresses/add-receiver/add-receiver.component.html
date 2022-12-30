@@ -1,0 +1,152 @@
+<p-card>
+    <ng-template pTemplate="header">
+        <h3>Step 2: Add the receiver data</h3>
+    </ng-template>
+    <form [formGroup]="addReceiverFormData" (submit)="addNewReceiver()">
+        <div class="grid p-fluid">
+            <div class="col-12 md:col-6">
+                <div class="field">
+                    <label for="firstName" class="block">First Name</label>
+                    <input id="firstName" 
+                           formControlName="firstName" 
+                           type="username" 
+                           aria-describedby="firstName-help" 
+                           [ngClass]="{'ng-dirty ng-invalid': fieldIsInvalid('firstName')}" 
+                           pInputText />
+                    <small id="firstName-help" 
+                            class="p-error block"
+                            *ngIf="fieldIsInvalid('firstName')">Your first name is required</small>
+                </div>
+            </div>
+            
+            <div class="col-12 md:col-6">
+                <div class="field">
+                    <label for="lastName" class="block">Last Name</label>
+                    <input id="lastName" 
+                           formControlName="lastName" 
+                           type="username" 
+                           aria-describedby="lastName-help" 
+                           [ngClass]="{'ng-dirty ng-invalid': fieldIsInvalid('lastName')}"  
+                           pInputText />
+                    <small id="lastName-help" 
+                           class="p-error block"
+                           *ngIf="fieldIsInvalid('lastName')">Your last name is required</small>
+                </div>
+            </div>
+        </div>
+        <div class="grid p-fluid">
+            <div class="col-12 md:col-6">
+                <div class="field">
+                    <label for="email" class="block">Email</label>
+                    <input id="email" 
+                           formControlName="email" 
+                           type="email" 
+                           aria-describedby="email-help" 
+                           [ngClass]="{'ng-dirty ng-invalid': fieldIsInvalid('email')}"  
+                           pInputText />
+                    <small id="email-help" 
+                           class="p-error block"
+                           *ngIf="fieldIsInvalid('email')">A valid email is required for confirmation</small>
+                </div>
+            </div>
+            
+            <div class="col-12 md:col-6">
+                <div class="field">
+                    <label for="phoneNumber" class="block">Phone Number</label>
+                    <input id="phoneNumber" 
+                           formControlName="phoneNumber" 
+                           type="tel" 
+                           aria-describedby="phoneNumber-help" 
+                           [ngClass]="{'ng-dirty ng-invalid': fieldIsInvalid('phoneNumber')}"  
+                           pInputText />
+                    <small id="phoneNumber-help" 
+                           class="p-error block"
+                           *ngIf="fieldIsInvalid('phoneNumber')">Your phone number is required</small>
+                </div>
+            </div>
+        </div>
+        <div class="grid p-fluid">
+            <div class="col-12 md:col-6">
+                <div class="field">
+                    <label for="address" class="block">Address</label>
+                    <input id="address" 
+                           formControlName="address" 
+                           type="username" 
+                           aria-describedby="address-help" 
+                           [ngClass]="{'ng-dirty ng-invalid': fieldIsInvalid('address')}" 
+                           pInputText />
+                    <small id="address-help" 
+                           class="p-error block"
+                           *ngIf="fieldIsInvalid('address')">This field is required</small>
+                </div>
+            </div>
+            
+            <div class="col-12 md:col-6">
+                <div class="field">
+                    <label for="city" class="block">City</label>
+                    <input id="city" 
+                           formControlName="city" 
+                           type="username" 
+                           aria-describedby="city-help" 
+                           [ngClass]="{'ng-dirty ng-invalid': fieldIsInvalid('city')}" 
+                           pInputText />
+                    <small id="city-help" 
+                           class="p-error block"
+                           *ngIf="fieldIsInvalid('city')">This field is required</small>
+                </div>
+            </div>
+        </div>
+        <div class="grid p-fluid">
+            <div class="col-12 md:col-4">
+                <div class="field">
+                    <label for="province" class="block">Province</label>
+                    <input id="province" 
+                           formControlName="province" 
+                           type="username" 
+                           aria-describedby="province-help" 
+                           [ngClass]="{'ng-dirty ng-invalid': fieldIsInvalid('province')}" 
+                           pInputText />
+                    <small id="province-help" 
+                           class="p-error block"
+                           *ngIf="fieldIsInvalid('province')">This field is required</small>
+                </div>
+            </div>
+            
+            <div class="col-12 md:col-4">
+                <div class="field">
+                    <label for="country" class="block">Country</label>
+                    <input id="country" 
+                           formControlName="country" 
+                           type="username" 
+                           aria-describedby="country-help" 
+                           [ngClass]="{'ng-dirty ng-invalid': fieldIsInvalid('country')}" 
+                           pInputText />
+                    <small id="country-help" 
+                           class="p-error block"
+                           *ngIf="fieldIsInvalid('country')">This field is required</small>
+                </div>
+            </div>
+
+            <div class="col-12 md:col-4">
+                <div class="field">
+                    <label for="zipCode" class="block">ZIP Code</label>
+                    <input id="zipCode" 
+                           formControlName="zipCode" 
+                           type="number" 
+                           aria-describedby="zipCode-help" 
+                           [ngClass]="{'ng-dirty ng-invalid': fieldIsInvalid('zipCode')}" 
+                           pInputText />
+                    <small id="zipCode-help" 
+                           class="p-error block"
+                           *ngIf="fieldIsInvalid('zipCode')">This field is required</small>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-content-end flex-wrap card-container blue-container">
+            <p-button type="submit" label="Next" icon="pi pi-send" styleClass="p-button-lg" [disabled]="addReceiverFormData.invalid"></p-button>
+        </div>
+    </form>
+    <ng-template pTemplate="footer">
+        Make sure all fields are fild in
+    </ng-template>
+</p-card>
