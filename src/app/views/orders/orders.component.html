@@ -9,6 +9,7 @@
                 <th>Sender Name</th>
                 <th>Email</th>
                 <th>Phone Number</th>
+                <th>Actions</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-order>
@@ -17,6 +18,32 @@
                 <td>{{order.sender.firstName}} {{order.sender.lastName}}</td>
                 <td>{{order.sender.email}}</td>
                 <td>{{order.sender.phoneNumber}}</td>
+                <td>
+					<button pButton 
+							pRipple 
+							type="button" 
+							label="Receiver" 
+							icon="pi pi-file-edit" 
+							iconPos="left"
+							(click)="onEditReceiver(order.id)"
+							style="margin-right: 4px"></button>
+					<button pButton 
+							pRipple 
+							type="button" 
+							label="Goods" 
+							icon="pi pi-file-edit" 
+							iconPos="left"
+							(click)="onEditGoods(order.id)"
+							style="margin-right: 4px"></button>
+							<button pButton
+									pRipple 
+									type="button" 
+									label="Delete" 
+									icon="pi pi-trash" 
+									iconPos="left" 
+									class="p-button-danger" 
+									style="margin-right: 4px"></button>
+				</td>
             </tr>
         </ng-template>
     </p-table>

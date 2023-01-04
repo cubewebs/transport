@@ -7,10 +7,12 @@ import { FeatureState } from '../models/FeatureState';
 
 export interface AppState {
   orders: FeatureState;
+  activeOrderId: number | null;
 }
 
 export const initialState: FeatureState = {
-  orders: []
+  orders: [],
+  activeOrderId: null,
 };
 
 export const orderInitialState: Order = {
@@ -49,5 +51,8 @@ export const ordersReducer = createReducer(
   )),
   on(fromActions.OrderActions.getAllOrdersError, (state, {error}) => (
     {...state, error}
+  )),
+  on(fromActions.OrderActions.activeOrderId, (state, action) => (
+	{...state, id: action.id}
   ))
 );

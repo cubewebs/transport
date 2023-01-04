@@ -11,3 +11,8 @@ export const selectAllOrders = createSelector(
   selectOrdersFeature,
   (state: FeatureState) => state.orders
 )
+
+export const selectActiveOrderId = createSelector(
+	selectOrdersFeature,
+	(state: FeatureState) => state.activeOrderId
+)

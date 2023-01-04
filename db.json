@@ -18,7 +18,20 @@
       "id": 2
     },
     {
+      "receiver": {
+        "firstName": "Lucia",
+        "lastName": "Nadal",
+        "email": "lucina@testmail.com",
+        "phoneNumber": "78673243987",
+        "address": "Calle Pinto 9",
+        "city": "Nejar",
+        "province": "Malaga",
+        "country": "España",
+        "zipCode": 6542
+      },
+      "id": 3,
       "_id": 0,
+      "goods": [],
       "sender": {
         "firstName": "Pedro",
         "lastName": "Lopez",
@@ -29,13 +42,23 @@
         "province": "Alicante",
         "country": "España",
         "zipCode": "46855"
-      },
-      "goods": [],
-      "receiver": null,
-      "id": 3
+      }
     },
     {
+      "receiver": {
+        "firstName": "Roberto",
+        "lastName": "Ramirez",
+        "email": "roberez",
+        "phoneNumber": "643654981",
+        "address": "Calle Tintin 21",
+        "city": "Quina",
+        "province": "Sevilla",
+        "country": "España",
+        "zipCode": 27653
+      },
+      "id": 5,
       "_id": 0,
+      "goods": [],
       "sender": {
         "firstName": "Fernando",
         "lastName": "Hortiz",
@@ -46,10 +69,7 @@
         "province": "Santa Cruz De Tenerife",
         "country": "España",
         "zipCode": 38660
-      },
-      "goods": [],
-      "receiver": null,
-      "id": 5
+      }
     },
     {
       "_id": 1672173843011,
@@ -69,7 +89,20 @@
       "id": 6
     },
     {
+      "receiver": {
+        "firstName": "Diego",
+        "lastName": "Cigala",
+        "email": "cigalita@mail.com",
+        "phoneNumber": "637492764",
+        "address": "Calle Pinto 9",
+        "city": "Rota",
+        "province": "Cádiz",
+        "country": "España",
+        "zipCode": 483562
+      },
+      "id": 7,
       "_id": 1672175549003,
+      "goods": [],
       "sender": {
         "firstName": "Fatima",
         "lastName": "Buka",
@@ -80,10 +113,7 @@
         "province": "Tenerife",
         "country": "España",
         "zipCode": 38567
-      },
-      "goods": [],
-      "receiver": null,
-      "id": 7
+      }
     }
   ],
   "goods": [

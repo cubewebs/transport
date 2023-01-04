@@ -11,7 +11,7 @@ const routes: Routes = [
 	{ path: 'add-order', component: AddOrderComponent },
 	{ path: 'add-receiver/:id', component: AddReceiverComponent },
 	{ path: 'addresses', component: AddressesComponent },
-	{ path: 'goods', component: GoodsComponent },
+	{ path: 'goods/:id', component: GoodsComponent },
 	{ path: '', component: OrdersComponent },
 	{ path: '**', redirectTo: 'orders' },
 ];

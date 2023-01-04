@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { map, mergeMap, catchError, switchMap, tap } from 'rxjs/operators';
+import { map, mergeMap, catchError, switchMap, tap, concatMap } from 'rxjs/operators';
 import { OrdersService } from '../services/orders.service';
 import * as fromActions from '../+store/order.actions'; 
+import * as fromReducers from '../+store/order.reducers'; 
 import { Order } from '../models/Order.model';
 
 @Injectable()
@@ -33,15 +34,19 @@ export class OrderEffects {
     )
   );
 
-  // updateOrder$ = createEffect(() => 
-  //         this.actions$.pipe(
-  //           ofType(fromActions.OrderActions.updateOrder),
-  //           switchMap(
-  //             (id, order) => this.ordersService.updateOrderById({ id order })
-  //           ),
+  updateOrder$ = createEffect(() => 
+          this.actions$.pipe(
+            ofType(fromActions.OrderActions.updateOrder),
+            concatMap(
+              (action) => this.ordersService.updateOrderById( action.id, action.order )
+			  .pipe(
+				map((order) => fromActions.OrderActions.updateOrderSuccess({ order })),
+				catchError( err => of(err))
+			  )
+            ),
               
-  //         )
-  // )
+          )
+  )
 
   constructor(
     private actions$: Actions,

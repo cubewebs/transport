@@ -24,16 +24,6 @@ export class NavbarComponent implements OnInit {
 				label: 'Add Order',
 				icon: 'pi pi-fw pi-plus-circle',
 				routerLink: 'add-order'
-			},
-			{
-				label: 'Addresses',
-				icon: 'pi pi-fw pi-map-marker',
-				routerLink: 'addresses'
-			},
-			{
-				label: 'Goods',
-				icon: 'pi pi-fw pi-box',
-				routerLink: 'goods'
 			}
 		]
 	}

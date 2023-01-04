@@ -13,5 +13,6 @@ export const OrderActions = createActionGroup({
     'Get All Orders': emptyProps(),
     'Get All Orders Success': props<{ orders: Order[] }>(),
     'Get All Orders Error': props<{ error: any }>(),
+	'Active Order Id': props<{ id: number }>(),
   },
 });

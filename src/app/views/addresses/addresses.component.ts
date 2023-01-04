@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AppState } from '../../+store/order.reducers';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-addresses',
@@ -6,5 +10,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./addresses.component.sass']
 })
 export class AddressesComponent {
+
 
 }

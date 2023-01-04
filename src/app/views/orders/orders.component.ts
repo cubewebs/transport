@@ -5,6 +5,7 @@ import * as fromSelectors from '../../+store/order.selectors';
 import * as fromActions from '../../+store/order.actions';
 import { AppState } from 'src/app/+store/order.reducers';
 import { map, Observable, of, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-orders',
@@ -16,10 +17,12 @@ export class OrdersComponent implements OnInit{
   orders$: Observable<any> = new Observable();
 
   constructor(
-    private store: Store<AppState>
+    private store: Store<AppState>,
+	private router: Router
   ) {
 
-    this.store.dispatch(fromActions.OrderActions.getAllOrders())
+    this.store.dispatch(fromActions.OrderActions.getAllOrders());
+	
   }
 
   ngOnInit(): void {
@@ -28,5 +31,13 @@ export class OrdersComponent implements OnInit{
         map( o => o.orders )
       )
   }
+
+  onEditReceiver( id: number ) {
+	this.router.navigateByUrl(`add-receiver/${id}`)
+  } 
+
+  onEditGoods( id: number ) {
+	this.router.navigateByUrl(`goods/${id}`)
+  } 
 
 }
