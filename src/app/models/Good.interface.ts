@@ -1,5 +1,9 @@
 export interface Good {
 	id: number;
-	name: string;
+	itemName: string;
+	dangerGoods: boolean;
+	itemDescription: string;
+	quantity: number;
 	individualWeight: number;
+	totalWeight: number;
 }

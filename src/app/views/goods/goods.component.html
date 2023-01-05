@@ -4,13 +4,90 @@
 		<p-orderList >
 			<ng-template let-car pTemplate="item">
 				<div>
-					<img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48">
+					<span class="p-inputgroup-addon"><i class="pi pi-box"></i></span>
 					<div style="font-size:14px;float:right;margin:15px 5px 0 0">{{car.brand}} - {{car.year}} - {{car.color}}</div>
 				</div>
 			</ng-template>
 		</p-orderList>
 	</div>
     <div class="col-8">
-		<h4>Package ID: {{orderId}}</h4>
+		<p-card>
+			<h5>Addons</h5>
+			<form [formGroup]="packageFormData">
+				<div class="grid p-fluid">			
+					<div class="col-12 md:col-10">
+						<div class="field">
+							<label for="item" class="block">Item Name</label>
+							<input type="text" 
+								   pInputText 
+								   id="item"
+								   placeholder="Item"
+								   formControlName="itemName">       
+						</div>
+					</div>
+
+					<div class="col-12 md:col-2">
+						<label for="danger" class="block" style="margin-bottom:8px">Is Danger Goods?</label>
+						<p-toggleButton formControlName="dangerGoods" 
+										onLabel="Yes" 
+										offLabel="No" 
+										onIcon="pi pi-check" 
+										offIcon="pi pi-times" 
+										[style]="{'width': '10em'}"
+										id="danger"></p-toggleButton>
+					</div>
+							
+					<div class="col-12 md:col-12" *ngIf="dangerGoodsFild.value">
+						<div class="field">
+							<label for="item" class="block">Item Description</label>
+							<input type="text" 
+								   pInputText
+								   id="item" 
+								   placeholder="Description"
+								   formControlName="itemDescription">      
+						</div>
+					</div>
+				</div>
+				<div class="grid p-fluid">
+					<div class="col-12 md:col-4">
+						<div class="p-inputgroup">
+							<span class="p-inputgroup-addon"><i class="pi pi-tag"></i></span>
+							<input type="number" 
+								   pInputText 
+								   placeholder="Single item weight"
+								   id="weight"
+								   formControlName="individualWeight">   
+							<span class="p-inputgroup-addon">.00</span>      
+						</div>
+					</div>
+							
+					<div class="col-12 md:col-4">
+						<div class="p-inputgroup">
+							<span class="p-inputgroup-addon"><i class="pi pi-hashtag"></i></span>
+							<input type="number" 
+								   pInputText 
+								   placeholder="Quantity"
+								   id="qty"
+								   formControlName="quantity">  
+							<span class="p-inputgroup-addon">items</span>         
+						</div>
+					</div>
+					
+					<div class="col-12 md:col-4">
+						<div class="p-inputgroup">
+							<span class="p-inputgroup-addon"><i class="pi pi-calculator"></i></span>
+							<input type="number" 
+								   pInputText 
+								   placeholder="Total Weight"
+								   id="total"
+								   formControlName="totalWeight">      
+						</div>
+					</div>
+				</div>
+				<div class="flex justify-content-end mt-4">
+					<button pButton pRipple type="button" label="Success" class="p-button-success"></button>
+				</div>
+			</form>
+		</p-card>
 	</div>
 </div>

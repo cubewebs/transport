@@ -1,7 +1,7 @@
 {
   "orders": [
     {
-      "_id": 0,
+      "_id": 1672773843011,
       "sender": {
         "firstName": "Juan Jose",
         "lastName": "Aos Rivera",
@@ -30,7 +30,7 @@
         "zipCode": 6542
       },
       "id": 3,
-      "_id": 0,
+      "_id": 1672173843982,
       "goods": [],
       "sender": {
         "firstName": "Pedro",
@@ -57,7 +57,7 @@
         "zipCode": 27653
       },
       "id": 5,
-      "_id": 0,
+      "_id": 1672173843274,
       "goods": [],
       "sender": {
         "firstName": "Fernando",
@@ -115,36 +115,5 @@
         "zipCode": 38567
       }
     }
-  ],
-  "goods": [
-    {
-      "id": 1,
-      "name": "some comment",
-      "individualWeight": 1
-    }
-  ],
-  "senders": {
-    "id": 1,
-    "firstName": "typicode",
-    "lastName": "typicode",
-    "email": "typicode",
-    "phoneNumber": "typicode",
-    "address": "typicode",
-    "city": "typicode",
-    "province": "typicode",
-    "country": "typicode",
-    "zipCode": "typicode"
-  },
-  "receivers": {
-    "id": 1,
-    "firstName": "typicode",
-    "lastName": "typicode",
-    "email": "typicode",
-    "phoneNumber": "typicode",
-    "address": "typicode",
-    "city": "typicode",
-    "province": "typicode",
-    "country": "typicode",
-    "zipCode": "typicode"
-  }
+  ]
 }

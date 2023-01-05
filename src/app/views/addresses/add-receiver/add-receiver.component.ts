@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { find, map } from 'rxjs';
+import { find, map, Observable } from 'rxjs';
 import { AppState } from 'src/app/+store/order.reducers';
 import * as fromActions from '../../../+store/order.actions';
+import * as fromSelectors from '../../../+store/order.selectors';
 import { Order } from 'src/app/models/Order.model';
 import { OrdersService } from 'src/app/services/orders.service';
 
@@ -16,6 +17,7 @@ import { OrdersService } from 'src/app/services/orders.service';
 export class AddReceiverComponent implements OnInit {
 
   orders: Order[] = [];
+  orders$: Observable<Order[]>;
   orderId!: number;
   order!: Order | null | undefined;
 
@@ -45,15 +47,17 @@ export class AddReceiverComponent implements OnInit {
 
 	this.store.dispatch(fromActions.OrderActions.getAllOrders());
 
+	this.orders$ = this.store.select(fromSelectors.selectAllOrders);
+	console.log('this.orders$ ->', this.orders$)
+
 	this.store.select('orders').pipe(
-		map( orders => {
-			this.orders = orders.orders;
+		map( state => {
+			this.orders = state.orders;
 		}),
 	).subscribe()
 
 	setTimeout(() => {
 		this.order = this.orders.find( order => this.orderId == order.id),
-		console.log('this.order ->', this.order)
 			this.addReceiverFormData.setValue({
 				firstName:   this.order?.receiver?.firstName || '',
 				lastName:    this.order?.receiver?.lastName || '',

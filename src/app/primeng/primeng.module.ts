@@ -7,6 +7,8 @@ import { TableModule } from 'primeng/table';
 import {CardModule} from 'primeng/card';
 import {ButtonModule} from 'primeng/button';
 import {OrderListModule} from 'primeng/orderlist';
+import {SelectButtonModule} from 'primeng/selectbutton';
+import {ToggleButtonModule} from 'primeng/togglebutton';
 
 
 
@@ -18,7 +20,9 @@ import {OrderListModule} from 'primeng/orderlist';
     TableModule,
     CardModule,
     ButtonModule,
-	OrderListModule
+	  OrderListModule,
+    SelectButtonModule,
+    ToggleButtonModule
   ]
 })
 export class PrimengModule { }
