@@ -4,7 +4,11 @@ import { AppState } from '../../+store/order.reducers';
 import { Store } from '@ngrx/store';
 import { Order } from '../../models/Order.model';
 import { OrderActions } from '../../+store/order.actions';
-import { map } from 'rxjs/operators';
+import * as fromSelectors from '../../+store/order.selectors';
+import { filter, find, map, tap } from 'rxjs/operators';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Good } from 'src/app/models/Good.interface';
+import { Observable, timer } from 'rxjs';
 
 @Component({
   selector: 'app-goods',
@@ -14,21 +18,34 @@ import { map } from 'rxjs/operators';
 export class GoodsComponent {
 
 	orderId: number = 0;
-	order!: Order;
+	orders: Order[] = [];
+	// order: Order;
+	packageFormData: FormGroup;
+
 
 	constructor(
 		private ar: ActivatedRoute,
-		private store: Store<AppState>
+		private store: Store<AppState>,
+		private fb: FormBuilder
 	) {
+
+		this.packageFormData = this.fb.group({
+			id: [],
+			itemName: ['Chairs', Validators.required],
+			dangerGoods: [false],
+			itemDescription: ['', Validators.required],
+			individualWeight: ['', Validators.required],
+			quantity: ['', Validators.required],
+			totalWeight: ['', Validators.required],
+		})
 		this.store.dispatch(OrderActions.getAllOrders())
 		this.ar.paramMap.subscribe( params => this.orderId = Number(params.get('id')));
-		console.log('this.orderId ->', this.orderId)
 		this.store.dispatch(OrderActions.activeOrderId({id: this.orderId}))
-		this.store.select('orders')
-		.pipe(
-			// map( orders => orders.find( order => this.orderId === order.id))
-		)
-		.subscribe()
+
+	}
+
+	get dangerGoodsFild() {
+		return this.packageFormData.get('dangerGoods') as FormControl;
 	}
 
 }

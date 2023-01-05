@@ -34,13 +34,22 @@ export const ordersReducer = createReducer(
   on(fromActions.OrderActions.addOrderError, (state, {error}) => (
     {...state, error}
   )),
-  on(fromActions.OrderActions.updateOrder, (state, action) => (
-    {...state, id: action.id, order: action.order}
+  on(fromActions.OrderActions.updateOrder, (state, {id, order}) => (
+    {...state, id, order}
   )),
   on(fromActions.OrderActions.updateOrderSuccess, (state, {order}) => (
     {...state, order}
   )),
   on(fromActions.OrderActions.updateOrderError, (state, {error}) => (
+    {...state, error}
+  )),
+  on(fromActions.OrderActions.deleteOrder, (state, {id}) => (
+    {...state, id}
+  )),
+  on(fromActions.OrderActions.deleteOrderSuccess, (state, {order}) => (
+    {...state, order}
+  )),
+  on(fromActions.OrderActions.deleteOrderError, (state, {error}) => (
     {...state, error}
   )),
   on(fromActions.OrderActions.getAllOrders, (state) => (

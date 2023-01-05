@@ -10,9 +10,12 @@ export const OrderActions = createActionGroup({
     'Update Order': props<{ id: number, order: Order }>(),
     'Update Order Success': props<{ order: Order }>(),
     'Update Order Error': props<{ error: any }>(),
+    'Delete Order': props<{ id: number }>(),
+    'Delete Order Success': props<{ order: Order }>(),
+    'Delete Order Error': props<{ error: any }>(),
     'Get All Orders': emptyProps(),
     'Get All Orders Success': props<{ orders: Order[] }>(),
     'Get All Orders Error': props<{ error: any }>(),
-	'Active Order Id': props<{ id: number }>(),
+	  'Active Order Id': props<{ id: number }>(),
   },
 });
