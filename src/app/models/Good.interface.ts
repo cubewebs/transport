@@ -6,4 +6,5 @@ export interface Good {
 	quantity: number;
 	individualWeight: number;
 	totalWeight: number;
+	orderId: number;
 }

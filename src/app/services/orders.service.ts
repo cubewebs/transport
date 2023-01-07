@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { map, Observable } from 'rxjs';
+import { Good } from '../models/Good.interface';
 
 import { Order } from '../models/Order.model';
 
@@ -35,5 +36,10 @@ export class OrdersService {
   updateOrderById(id: number, order: Order): Observable<Order> {
     const url = `${this.baseUrl}/orders/${id}`;
     return this.http.put<Order>( url, order )
+  }
+
+  addPackage(pkg: Good): Observable<Good> {
+    const url = `${this.baseUrl}/goods`;
+    return this.http.put<Good>( url, pkg )
   }
 }
