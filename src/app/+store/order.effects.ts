@@ -28,7 +28,7 @@ export class OrderEffects {
       mergeMap(() => this.ordersService.getAllOrders()
         .pipe(
           map((orders) => fromActions.OrderActions.getAllOrdersSuccess({orders})),
-          catchError( err => of(err))
+          catchError( err => of( err ))
         )
       )
     )
@@ -41,10 +41,23 @@ export class OrderEffects {
               (action) => this.ordersService.updateOrderById( action.id, action.order )
 			  .pipe(
 				map((order) => fromActions.OrderActions.updateOrderSuccess({ order })),
-				catchError( err => of(err))
+				catchError( err => of( err ))
 			  )
             ),
               
+          )
+  )
+
+  addPackage = createEffect(() =>
+          this.actions$.pipe(
+            ofType(fromActions.OrderActions.addPackage),
+            concatMap(
+              (action) => this.ordersService.addPackage(action.pkg)
+              .pipe(
+                map((pkg) => fromActions.OrderActions.addPackageSuccess({ pkg })),
+                catchError( err => of( err ))
+              )
+            )
           )
   )
 

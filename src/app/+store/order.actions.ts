@@ -1,4 +1,5 @@
 import { createAction, createActionGroup, emptyProps, props } from '@ngrx/store';
+import { Good } from '../models/Good.interface';
 import { Order } from '../models/Order.model';
 
 export const OrderActions = createActionGroup({
@@ -7,9 +8,15 @@ export const OrderActions = createActionGroup({
     'Add Order': props<{ order: Order }>(),
     'Add Order Success': props<{ order: Order }>(),
     'Add Order Error': props<{ error: any }>(),
+    'Select Order': props<{ orderId: Order }>(),
+    'Select Order Success': props<{ order: Order }>(),
+    'Select Order Error': props<{ error: any }>(),
     'Update Order': props<{ id: number, order: Order }>(),
     'Update Order Success': props<{ order: Order }>(),
     'Update Order Error': props<{ error: any }>(),
+    'Add Package': props<{ pkg: Good }>(),
+    'Add Package Success': props<{ pkg: Good }>(),
+    'Add Package Error': props<{ error: any }>(),
     'Delete Order': props<{ id: number }>(),
     'Delete Order Success': props<{ order: Order }>(),
     'Delete Order Error': props<{ error: any }>(),

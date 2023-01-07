@@ -2,7 +2,7 @@
     <ng-template pTemplate="header">
         <h3>All Orders</h3>
     </ng-template>
-    <p-table [value]="orders$ | async" [tableStyle]="{'min-width': '50rem'}">
+    <p-table [value]="orders" [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
             <tr>
                 <th>order ID</th>
@@ -15,7 +15,7 @@
         <ng-template pTemplate="body" let-order>
             <tr>
                 <td>{{order.id}}</td>
-                <td>{{order.sender.firstName}} {{order.sender.lastName}}</td>
+                <td (dblclick)="onSelectSender(order.id)">{{order.sender.firstName}} {{order.sender.lastName}}</td>
                 <td>{{order.sender.email}}</td>
                 <td>{{order.sender.phoneNumber}}</td>
                 <td>
@@ -35,14 +35,15 @@
 							iconPos="left"
 							(click)="onEditGoods(order.id)"
 							style="margin-right: 4px"></button>
-							<button pButton
-									pRipple 
-									type="button" 
-									label="Delete" 
-									icon="pi pi-trash" 
-									iconPos="left" 
-									class="p-button-danger" 
-									style="margin-right: 4px"></button>
+                    <button pButton
+                            pRipple 
+                            type="button" 
+                            label="Delete" 
+                            icon="pi pi-trash" 
+                            iconPos="left" 
+                            class="p-button-danger"
+                            (click)="onDeleteOrder(order.id)" 
+                            style="margin-right: 4px"></button>
 				</td>
             </tr>
         </ng-template>

@@ -14,22 +14,23 @@ import { Router } from '@angular/router';
 })
 export class OrdersComponent implements OnInit{
 
-  orders$: Observable<any> = new Observable();
+  orders: Order[] = [];
 
   constructor(
     private store: Store<AppState>,
 	private router: Router
-  ) {
-
-    this.store.dispatch(fromActions.OrderActions.getAllOrders());
-	
-  }
-
+  ) {  }
+  
   ngOnInit(): void {
-    this.orders$ = this.store.select('orders')
+    this.store.dispatch(fromActions.OrderActions.getAllOrders());
+    this.store.select('orders')
       .pipe(
         map( o => o.orders )
-      )
+      ).subscribe( o => console.log('o ->', o) )
+  }
+
+  onSelectSender( id: number ) {
+    this.router.navigateByUrl(`add-order/${id}`)
   }
 
   onEditReceiver( id: number ) {
@@ -39,5 +40,9 @@ export class OrdersComponent implements OnInit{
   onEditGoods( id: number ) {
 	this.router.navigateByUrl(`goods/${id}`)
   } 
+
+  onDeleteOrder( id: number ) {
+    this.store.dispatch(fromActions.OrderActions.deleteOrder({ id }))
+  }
 
 }

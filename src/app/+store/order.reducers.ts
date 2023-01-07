@@ -3,15 +3,18 @@ import { createReducer, on } from '@ngrx/store';
 import * as fromActions from './order.actions'; 
 import { Order } from '../models/Order.model'; 
 import { FeatureState } from '../models/FeatureState';
+import { Good } from '../models/Good.interface';
 
 
 export interface AppState {
   orders: FeatureState;
+  goods: FeatureState;
   activeOrderId: number | null;
 }
 
 export const initialState: FeatureState = {
   orders: [],
+  goods: [],
   activeOrderId: null,
 };
 
@@ -21,6 +24,17 @@ export const orderInitialState: Order = {
   goods: [],
   receiver: null,
   id: 0
+}
+
+export const goodInitialState: Good = {
+  id: 0,
+	itemName: '',
+	dangerGoods: false,
+	itemDescription: '',
+	quantity: 0,
+	individualWeight: 0,
+	totalWeight: 0,
+	orderId: 0,
 }
 
 export const ordersReducer = createReducer(
@@ -41,6 +55,15 @@ export const ordersReducer = createReducer(
     {...state, order}
   )),
   on(fromActions.OrderActions.updateOrderError, (state, {error}) => (
+    {...state, error}
+  )),
+  on(fromActions.OrderActions.addPackage, (state, action) => (
+    {...state, package: action.pkg}
+  )),
+  on(fromActions.OrderActions.addPackageSuccess, (state, action) => (
+    {...state, package: action.pkg}
+  )),
+  on(fromActions.OrderActions.addPackageError, (state, {error}) => (
     {...state, error}
   )),
   on(fromActions.OrderActions.deleteOrder, (state, {id}) => (

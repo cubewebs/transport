@@ -9,6 +9,7 @@ import { AddReceiverComponent } from './views/addresses/add-receiver/add-receive
 const routes: Routes = [
 	{ path: 'orders', component: OrdersComponent },
 	{ path: 'add-order', component: AddOrderComponent },
+	{ path: 'add-order/:id', component: AddOrderComponent },
 	{ path: 'add-receiver/:id', component: AddReceiverComponent },
 	{ path: 'addresses', component: AddressesComponent },
 	{ path: 'goods/:id', component: GoodsComponent },

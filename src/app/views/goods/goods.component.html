@@ -13,7 +13,7 @@
     <div class="col-8">
 		<p-card>
 			<h5>Addons</h5>
-			<form [formGroup]="packageFormData">
+			<form [formGroup]="packageFormData" (submit)="addPackage()">
 				<div class="grid p-fluid">			
 					<div class="col-12 md:col-10">
 						<div class="field">
@@ -27,7 +27,7 @@
 					</div>
 
 					<div class="col-12 md:col-2">
-						<label for="danger" class="block" style="margin-bottom:8px">Is Danger Goods?</label>
+						<label for="danger" class="block" style="margin-bottom:8px;">Is Danger Goods?</label>
 						<p-toggleButton formControlName="dangerGoods" 
 										onLabel="Yes" 
 										offLabel="No" 
@@ -85,7 +85,7 @@
 					</div>
 				</div>
 				<div class="flex justify-content-end mt-4">
-					<button pButton pRipple type="button" label="Success" class="p-button-success"></button>
+					<button pButton pRipple type="submit" label="Success" class="p-button-success"></button>
 				</div>
 			</form>
 		</p-card>

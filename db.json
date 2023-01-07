@@ -1,21 +1,8 @@
 {
   "orders": [
     {
-      "_id": 1672773843011,
-      "sender": {
-        "firstName": "Juan Jose",
-        "lastName": "Aos Rivera",
-        "email": "juanjoseaos@hotmail.com",
-        "phoneNumber": "676684306",
-        "address": "C. Asturias 71",
-        "city": "",
-        "province": "Santa Cruz De Tenerife",
-        "country": "España",
-        "zipCode": "38660"
-      },
-      "goods": [],
-      "receiver": null,
-      "id": 2
+      "id": 2,
+      "goods": "undefined[object Object]"
     },
     {
       "receiver": {
@@ -115,5 +102,8 @@
         "zipCode": 38567
       }
     }
+  ],
+  "goods": [
+    
   ]
 }
