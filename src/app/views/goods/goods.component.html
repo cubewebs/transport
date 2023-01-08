@@ -16,7 +16,9 @@
     <div class="col-8">
 		<p-card>
 			<h5>Package to <span *ngIf="selectedPkgId">Update</span><span *ngIf="!selectedPkgId">Save</span></h5>
+
 			<form [formGroup]="packageFormData" (submit)="addPackage()">
+
 				<div class="grid p-fluid">			
 					<div class="col-12 md:col-10">
 						<div class="field">
@@ -51,6 +53,7 @@
 						</div>
 					</div>
 				</div>
+
 				<div class="grid p-fluid">
 					<div class="col-12 md:col-4">
 						<div class="p-inputgroup">
@@ -88,10 +91,12 @@
 						</div>
 					</div>
 				</div>
+
 				<div class="flex justify-content-end mt-4">
 					<button *ngIf="!selectedPkgId" pButton pRipple type="submit" label="Save" class="p-button-success"></button>
 					<button *ngIf="selectedPkgId" pButton pRipple type="button" label="Update" class="p-button-success" (click)="updatePackage()"></button>
 				</div>
+				
 			</form>
 		</p-card>
 	</div>
