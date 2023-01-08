@@ -1,10 +1,6 @@
 {
   "orders": [
     {
-      "id": 2,
-      "goods": "undefined[object Object]"
-    },
-    {
       "receiver": {
         "firstName": "Lucia",
         "lastName": "Nadal",
@@ -104,6 +100,53 @@
     }
   ],
   "goods": [
-    
+    {
+      "id": 1,
+      "itemName": "Gun",
+      "dangerGoods": true,
+      "itemDescription": "Can harm people",
+      "individualWeight": 1.1,
+      "quantity": 1000,
+      "totalWeight": 1100,
+      "orderId": 3
+    },
+    {
+      "id": 2,
+      "itemName": "Pen",
+      "dangerGoods": false,
+      "itemDescription": "With cocaine",
+      "individualWeight": 0.02,
+      "quantity": 1000,
+      "totalWeight": 20,
+      "orderId": 3
+    },
+    {
+      "id": 3,
+      "itemName": "Pencil",
+      "dangerGoods": false,
+      "itemDescription": "With cocaine",
+      "individualWeight": 0.02,
+      "quantity": 1000,
+      "totalWeight": 20,
+      "orderId": 3
+    },
+    {
+      "id": 4,
+      "itemName": "Coins",
+      "dangerGoods": false,
+      "itemDescription": "With cocaine",
+      "individualWeight": 0.01,
+      "quantity": 1123,
+      "orderId": 5
+    },
+    {
+      "id": 5,
+      "itemName": "Coins",
+      "dangerGoods": false,
+      "itemDescription": "With cocaine",
+      "individualWeight": 0.01,
+      "quantity": 1123,
+      "orderId": 5
+    }
   ]
 }

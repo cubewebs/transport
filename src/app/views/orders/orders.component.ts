@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Order } from 'src/app/models/Order.model';
 import * as fromSelectors from '../../+store/order.selectors';
 import * as fromActions from '../../+store/order.actions';
@@ -18,16 +18,17 @@ export class OrdersComponent implements OnInit{
 
   constructor(
     private store: Store<AppState>,
-	private router: Router
-  ) {  }
-  
-  ngOnInit(): void {
+	  private router: Router
+  ) { 
     this.store.dispatch(fromActions.OrderActions.getAllOrders());
-    this.store.select('orders')
-      .pipe(
-        map( o => o.orders )
-      ).subscribe( o => console.log('o ->', o) )
-  }
+
+    this.store.select(fromSelectors.selectAllOrders).pipe(
+      map( orders => orders)
+    ).subscribe( o => this.orders = o )
+
+   }
+  
+  ngOnInit(): void {}
 
   onSelectSender( id: number ) {
     this.router.navigateByUrl(`add-order/${id}`)

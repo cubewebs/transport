@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { map, mergeMap, catchError, switchMap, tap, concatMap } from 'rxjs/operators';
+import { map, mergeMap, catchError, switchMap, tap, concatMap, exhaustMap } from 'rxjs/operators';
 import { OrdersService } from '../services/orders.service';
 import * as fromActions from '../+store/order.actions'; 
 import * as fromReducers from '../+store/order.reducers'; 
@@ -59,6 +59,30 @@ export class OrderEffects {
               )
             )
           )
+  )
+
+  getPackages$ = createEffect(() =>
+                this.actions$.pipe(
+                  ofType(fromActions.OrderActions.getPackages),
+                  mergeMap(
+                    () => this.ordersService.getPackages().pipe(
+                      map((pkgs) => fromActions.OrderActions.getPackagesSuccess({ pkgs })),
+                      catchError( err => of( err ))
+                    )
+                  )
+                )
+  )
+
+  updatePackage$ = createEffect(() => 
+                this.actions$.pipe(
+                  ofType(fromActions.OrderActions.updatePackage),
+                  concatMap(
+                    ({id, pkg}) => this.ordersService.updatePackage(id, pkg).pipe(
+                      map((pkg) => fromActions.OrderActions.updatePackageSuccess({ pkg })),
+                      catchError( err => of( err ))
+                    )
+                  )
+                )
   )
 
   constructor(
