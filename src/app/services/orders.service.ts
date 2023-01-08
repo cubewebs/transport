@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { map, Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { Good } from '../models/Good.interface';
 
 import { Order } from '../models/Order.model';
@@ -40,6 +40,17 @@ export class OrdersService {
 
   addPackage(pkg: Good): Observable<Good> {
     const url = `${this.baseUrl}/goods`;
+    return this.http.post<Good>( url, pkg )
+  }
+
+  getPackages(): Observable<Good[]> {
+    const url = `${this.baseUrl}/goods`;
+    return this.http.get<Good[]>( url ).pipe(map(pkgs => pkgs || []))
+  }
+
+  updatePackage( id: number, pkg: Good ) {
+    const url = `${this.baseUrl}/goods/${id}`;
     return this.http.put<Good>( url, pkg )
   }
+
 }

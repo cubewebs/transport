@@ -15,9 +15,9 @@
         <ng-template pTemplate="body" let-order>
             <tr>
                 <td>{{order.id}}</td>
-                <td (dblclick)="onSelectSender(order.id)">{{order.sender.firstName}} {{order.sender.lastName}}</td>
-                <td>{{order.sender.email}}</td>
-                <td>{{order.sender.phoneNumber}}</td>
+                <td (dblclick)="onSelectSender(order.id)">{{order.sender?.firstName}} {{order.sender?.lastName}}</td>
+                <td>{{order.sender?.email}}</td>
+                <td>{{order.sender?.phoneNumber}}</td>
                 <td>
 					<button pButton 
 							pRipple 

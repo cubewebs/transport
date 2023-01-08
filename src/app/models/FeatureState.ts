@@ -3,6 +3,5 @@ import { Order } from "./Order.model";
 
 export interface FeatureState {
     orders: Order[];
-    goods: Good[];
-	activeOrderId: number | null;
+    pkgs: Good[];
 }

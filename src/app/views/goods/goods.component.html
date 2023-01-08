@@ -1,19 +1,24 @@
 <h4>Order ID: {{orderId}}</h4>
 <div class="grid mt-5">
     <div class="col-4">
-		<p-orderList >
-			<ng-template let-car pTemplate="item">
-				<div>
-					<span class="p-inputgroup-addon"><i class="pi pi-box"></i></span>
-					<div style="font-size:14px;float:right;margin:15px 5px 0 0">{{car.brand}} - {{car.year}} - {{car.color}}</div>
+		<div class="flex justify-content-center mb-2">
+			<button pButton pRipple type="button" label="Add Package" class="p-button-success" (click)="addNewPackage()"></button>
+		</div>
+		<p-orderList [value]="pkgs">
+			<ng-template let-pkg pTemplate="item">
+				<div (click)="selectedPackage(pkg.id)">
+					<span class="p-inputgroup-addon" style="display:inline-block;margin:2px 0 2px 2px" width="48"><i class="pi pi-box"></i></span>
+					<div style="font-size:14px;float:right;margin:15px 5px 0 0">ID: {{pkg.id}} - Name: {{pkg.itemName}} - Quantity: {{pkg.quantity}}</div>
 				</div>
 			</ng-template>
 		</p-orderList>
 	</div>
     <div class="col-8">
 		<p-card>
-			<h5>Addons</h5>
+			<h5>Package to <span *ngIf="selectedPkgId">Update</span><span *ngIf="!selectedPkgId">Save</span></h5>
+
 			<form [formGroup]="packageFormData" (submit)="addPackage()">
+
 				<div class="grid p-fluid">			
 					<div class="col-12 md:col-10">
 						<div class="field">
@@ -48,6 +53,7 @@
 						</div>
 					</div>
 				</div>
+
 				<div class="grid p-fluid">
 					<div class="col-12 md:col-4">
 						<div class="p-inputgroup">
@@ -57,7 +63,7 @@
 								   placeholder="Single item weight"
 								   id="weight"
 								   formControlName="individualWeight">   
-							<span class="p-inputgroup-addon">.00</span>      
+							<span class="p-inputgroup-addon">KG</span>      
 						</div>
 					</div>
 							
@@ -80,13 +86,17 @@
 								   pInputText 
 								   placeholder="Total Weight"
 								   id="total"
-								   formControlName="totalWeight">      
+								   formControlName="totalWeight">  
+							<span class="p-inputgroup-addon">KG</span>     
 						</div>
 					</div>
 				</div>
+
 				<div class="flex justify-content-end mt-4">
-					<button pButton pRipple type="submit" label="Success" class="p-button-success"></button>
+					<button *ngIf="!selectedPkgId" pButton pRipple type="submit" label="Save" class="p-button-success"></button>
+					<button *ngIf="selectedPkgId" pButton pRipple type="button" label="Update" class="p-button-success" (click)="updatePackage()"></button>
 				</div>
+				
 			</form>
 		</p-card>
 	</div>

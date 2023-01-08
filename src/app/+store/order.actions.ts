@@ -23,6 +23,12 @@ export const OrderActions = createActionGroup({
     'Get All Orders': emptyProps(),
     'Get All Orders Success': props<{ orders: Order[] }>(),
     'Get All Orders Error': props<{ error: any }>(),
+    'Get Packages': emptyProps(),
+    'Get Packages Success': props<{ pkgs: Good[] }>(),
+    'Get Packages Error': props<{ error: any }>(),
+    'Update Package': props<{ id: number, pkg: Good }>(),
+    'Update Package Success': props<{ pkg: Good }>(),
+    'Update Package Error': props<{ error: any }>(),
 	  'Active Order Id': props<{ id: number }>(),
   },
 });
