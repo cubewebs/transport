@@ -13,16 +13,18 @@ import { Observable, of, timer } from 'rxjs';
 @Component({
   selector: 'app-goods',
   templateUrl: './goods.component.html',
-  styleUrls: ['./goods.component.sass']
+  styleUrls: ['./goods.component.css']
 })
 export class GoodsComponent implements OnInit {
 
 	orderId: number = 0;
-	orders$: Observable<Order[]> = new Observable();
-	actualOrder: Observable<Order | undefined> = new Observable();
+	orders$!: Observable<Order[]>;
+	actualOrder!: Observable<Order | undefined>;
 	packageFormData!: FormGroup;
-	pkgs: Good[] = [];
+	// pkgs: Good[] = [];
+	pkgs$!: Observable<Good[]>;
 	selectedPkg?: Good;
+	selectedPkg$!: Observable<Good | undefined>;
 	selectedPkgId?: boolean;
 
 
@@ -30,16 +32,19 @@ export class GoodsComponent implements OnInit {
 		private ar: ActivatedRoute,
 		private store: Store<AppState>,
 		private fb: FormBuilder
-	) {	}
+	) {
+		this.store.dispatch(OrderActions.getAllOrders());
+		this.store.dispatch(OrderActions.getPackages());
+		this.ar.paramMap.subscribe( params => this.orderId = Number(params.get('id')));
+		this.pkgs$ = this.store.select(fromSelectors.selectAllPackages).pipe(
+			map( pkgs => pkgs.filter( p => p.orderId === this.orderId))
+		)
+	}
 
 	ngOnInit(): void {
 		
-		this.store.dispatch(OrderActions.getAllOrders())
-		this.store.dispatch(OrderActions.getPackages())
-		this.ar.paramMap.subscribe( params => this.orderId = Number(params.get('id')));
 		this.store.dispatch(OrderActions.activeOrderId({id: this.orderId}));
 		this.initFormData();
-		this.getOrderPackages();
 		
 	}
 
@@ -68,18 +73,18 @@ export class GoodsComponent implements OnInit {
 		return this.packageFormData.get('quantity') as FormControl;
 	}
 
-	getOrderPackages() {
-		setTimeout(() => {
-			this.store.select(fromSelectors.selectAllPackages)
-			.pipe(
-				map( pkgs => pkgs.filter( p => p.orderId === this.orderId))
-			).subscribe( pkgs => this.pkgs = pkgs )
-		}, 100);
+	resetValues() {
+		this.packageFormData.reset()
+		this.packageFormData.patchValue({
+			dangerGoods: false,
+			orderId: this.orderId
+		})
 	}
 
 	addPackage() {
 		this.store.dispatch(OrderActions.addPackage({ pkg: this.packageFormData.value }));
-		this.packageFormData.reset()
+		this.resetValues();
+		this.store.dispatch(OrderActions.getPackages());
 	}
 
 	calcTotalWeight(): number {
@@ -87,7 +92,9 @@ export class GoodsComponent implements OnInit {
 	}
 
 	selectedPackage(id: number) {
-		this.selectedPkg = this.pkgs.find( p => p.id === id )
+		this.pkgs$.pipe(
+			map( p => p.find( p => id === p.id))
+		).subscribe( p => this.selectedPkg = p)
 		if(this.selectedPkg?.id) {
 			this.selectedPkgId = true
 		} else {
@@ -101,17 +108,24 @@ export class GoodsComponent implements OnInit {
 			individualWeight: this.selectedPkg?.individualWeight,
 			quantity: this.selectedPkg?.quantity,
 			totalWeight: this.selectedPkg!.quantity * this.selectedPkg!.individualWeight,
-			orderId: this.selectedPkg?.orderId
+			orderId: this.orderId
 		})
 	}
 
 	updatePackage() {
 		this.store.dispatch(OrderActions.updatePackage({id: this.selectedPkg!.id,  pkg: this.packageFormData.value}));
+		this.store.dispatch(OrderActions.getPackages());
 	}
 
 	addNewPackage() {
-		this.packageFormData.reset();
-		this.selectedPkgId = false;
+		this.resetValues();
+		this.selectedPkg = this.packageFormData.value;
+	}
+
+	deletePkg(id: number) {
+		this.store.dispatch(OrderActions.deletePackage({ id }));
+		this.store.dispatch(OrderActions.getPackages());
+		this.resetValues();
 	}
 
 }
