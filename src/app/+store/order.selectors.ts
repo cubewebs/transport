@@ -14,7 +14,6 @@ export const selectAllOrders = createSelector(
 export const selectAllPackages = createSelector(
   selectOrdersFeature,
   (state: FeatureState) => {
-    console.log('state ->', state.pkgs)
     return state.pkgs
   }
 )

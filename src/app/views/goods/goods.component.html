@@ -4,18 +4,32 @@
 		<div class="flex justify-content-center mb-2">
 			<button pButton pRipple type="button" label="Add Package" class="p-button-success" (click)="addNewPackage()"></button>
 		</div>
-		<p-orderList [value]="pkgs">
+		<table class="table-wrap">
+			<tr>
+				<th class="th-title">Order's Packages</th>
+			</tr>
+			<tr>
+				<td *ngFor="let pkg of pkgs$ | async" class="flex" [class.active]="selectedPkg?.id === pkg.id ? true : false">
+					<button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="deletePkg(pkg.id)"></button>
+					<div (click)="selectedPackage(pkg.id)" class="table-item">
+						<span class="p-inputgroup-addon" style="display:inline-block;margin:2px 10px 2px 12px" width="48"><i class="pi pi-box"></i></span>
+						<div style="font-size:14px;float:right;margin:15px 5px 0 0">ID: {{pkg.id}} - Name: {{pkg.itemName}} - Quantity: {{pkg.quantity}}</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<!-- <p-orderList [value]="pkgs">
 			<ng-template let-pkg pTemplate="item">
 				<div (click)="selectedPackage(pkg.id)">
 					<span class="p-inputgroup-addon" style="display:inline-block;margin:2px 0 2px 2px" width="48"><i class="pi pi-box"></i></span>
 					<div style="font-size:14px;float:right;margin:15px 5px 0 0">ID: {{pkg.id}} - Name: {{pkg.itemName}} - Quantity: {{pkg.quantity}}</div>
 				</div>
 			</ng-template>
-		</p-orderList>
+		</p-orderList> -->
 	</div>
     <div class="col-8">
 		<p-card>
-			<h5>Package to <span *ngIf="selectedPkgId">Update</span><span *ngIf="!selectedPkgId">Save</span></h5>
+			<h3>Package to <span *ngIf="selectedPkgId">Update</span><span *ngIf="!selectedPkgId">Save</span></h3>
 
 			<form [formGroup]="packageFormData" (submit)="addPackage()">
 
@@ -36,8 +50,8 @@
 						<p-toggleButton formControlName="dangerGoods" 
 										onLabel="Yes" 
 										offLabel="No" 
-										onIcon="pi pi-check" 
-										offIcon="pi pi-times" 
+										offIcon="pi pi-times"
+										onIcon="pi pi-check"
 										[style]="{'width': '10em'}"
 										id="danger"></p-toggleButton>
 					</div>

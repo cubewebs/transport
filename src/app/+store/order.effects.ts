@@ -22,6 +22,21 @@ export class OrderEffects {
     )
   );
 
+  deleteOrder$ = createEffect(() => 
+          this.actions$.pipe(
+            ofType(fromActions.OrderActions.deleteOrder),
+            exhaustMap(
+              ({id}) => this.ordersService.deleteOrder( id )
+              .pipe(
+                map(
+                  order => fromActions.OrderActions.deleteOrderSuccess({ order })
+                ),
+                catchError( err => of( err ))
+              )
+            )
+          )
+  )
+
   loadOrders$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromActions.OrderActions.getAllOrders),
@@ -55,6 +70,19 @@ export class OrderEffects {
               (action) => this.ordersService.addPackage(action.pkg)
               .pipe(
                 map((pkg) => fromActions.OrderActions.addPackageSuccess({ pkg })),
+                catchError( err => of( err ))
+              )
+            )
+          )
+  )
+
+  deletePackage$ = createEffect(() => 
+          this.actions$.pipe(
+            ofType(fromActions.OrderActions.deletePackage),
+            exhaustMap(
+              action => this.ordersService.deletePackage( action.id )
+              .pipe(
+                map(pkg => fromActions.OrderActions.deletePackageSuccess({ pkg })),
                 catchError( err => of( err ))
               )
             )

@@ -63,6 +63,15 @@ export const ordersReducer = createReducer(
   on(fromActions.OrderActions.addPackageError, (state, {error}) => (
     {...state, error}
   )),
+  on(fromActions.OrderActions.deletePackage, (state, {id}) => (
+    {...state, id}
+  )),
+  on(fromActions.OrderActions.deletePackageSuccess, (state, {pkg}) => (
+    {...state, pkg}
+  )),
+  on(fromActions.OrderActions.deletePackageError, (state, {error}) => (
+    {...state, error}
+  )),
   on(fromActions.OrderActions.deleteOrder, (state, {id}) => (
     {...state, id}
   )),

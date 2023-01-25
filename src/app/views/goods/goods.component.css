@@ -1,0 +1,30 @@
+.active {
+    background-color: azure;
+}
+
+.table-wrap {
+    width: 100%;
+    border: 1px solid #ccc;
+}
+
+.table-item {
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+}
+
+.th-title {
+    color: white;
+    background-color: darkgray;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+
+}
+
+.delet-btn {
+    display: inline-block;
+    float: right;
+}
+
+.float-r {
+    float: right;
+}

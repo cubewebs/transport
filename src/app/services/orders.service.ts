@@ -22,6 +22,11 @@ export class OrdersService {
     return this.http.post<Order>( url, order );
   }
 
+  deleteOrder( id: number ): Observable<Order> {
+    const url = `${this.baseUrl}/orders/${id}`;
+    return this.http.delete<Order>( url )
+  }
+
   getAllOrders(): Observable<Order[]> {
     const url = `${this.baseUrl}/orders`;
     return this.http.get<Order[]>( url )
@@ -51,6 +56,11 @@ export class OrdersService {
   updatePackage( id: number, pkg: Good ) {
     const url = `${this.baseUrl}/goods/${id}`;
     return this.http.put<Good>( url, pkg )
+  }
+
+  deletePackage( id: number ): Observable<Good> {
+    const url = `${this.baseUrl}/goods/${id}`;
+    return this.http.delete<Good>( url )
   }
 
 }

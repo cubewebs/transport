@@ -24,7 +24,7 @@ export class AddReceiverComponent implements OnInit {
   addReceiverFormData: FormGroup = this.fb.group({
     	firstName:   ['', [Validators.required]],
 		lastName:    ['', [Validators.required]],
-    	email:     	 ['', [Validators.required]],
+    	email:     	 ['', [Validators.required, Validators.email]],
 		phoneNumber: ['', [Validators.required]],
 		address:     ['', [Validators.required]],
 		city:        ['', [Validators.required]],
@@ -48,13 +48,15 @@ export class AddReceiverComponent implements OnInit {
 	this.store.dispatch(fromActions.OrderActions.getAllOrders());
 
 	this.orders$ = this.store.select(fromSelectors.selectAllOrders);
-	console.log('this.orders$ ->', this.orders$)
 
 	this.store.select('orders').pipe(
 		map( state => {
 			this.orders = state.orders;
 		}),
 	).subscribe()
+
+  }
+  ngOnInit(): void {
 
 	setTimeout(() => {
 		this.order = this.orders.find( order => this.orderId == order.id),
@@ -70,9 +72,8 @@ export class AddReceiverComponent implements OnInit {
 				zipCode:     this.order?.receiver?.zipCode || '',
 			})
 	}, 100);
-  }
-  ngOnInit(): void {
 
+	console.log('this.order?.id ->', this.order?.id)
   }
 
   fieldIsInvalid( field: string ) {
@@ -84,7 +85,7 @@ export class AddReceiverComponent implements OnInit {
   addNewReceiver() {
 	let changes: Order = {
 		receiver: this.addReceiverFormData.value,
-		id: this.order!._id,
+		id: this.order!.id,
 		_id: this.order!._id,
 		goods: this.order!.goods,
 		sender: this.order!.sender,
