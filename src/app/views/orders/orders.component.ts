@@ -7,6 +7,14 @@ import { AppState } from 'src/app/+store/order.reducers';
 import { map, Observable, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
 
+interface ResponseList {
+  id: number,
+  fname: string,
+  lname: string,
+  email: string,
+  phoneNumber: string
+}
+
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
@@ -14,21 +22,41 @@ import { Router } from '@angular/router';
 })
 export class OrdersComponent implements OnInit{
 
-  orders: Order[] = [];
+  orders: ResponseList[] = [];
 
   constructor(
     private store: Store<AppState>,
 	  private router: Router
   ) { 
+    
     this.store.dispatch(fromActions.OrderActions.getAllOrders());
 
-    this.store.select(fromSelectors.selectAllOrders).pipe(
-      map( orders => orders)
+    this.store.select<Order[]>(fromSelectors.selectAllOrders).pipe(
+      map( o => this.flattenResponse(o))
     ).subscribe( o => this.orders = o )
 
-   }
-  
+  }
+    
   ngOnInit(): void {}
+
+  flattenResponse(res: any) {
+    let result: any = [];
+
+    res.forEach((element: any) => {
+
+      let obj = {
+        id: element.id,
+        fname: element.sender?.firstName,
+        lname: element.sender?.lastName,
+        email: element.sender?.email,
+        phoneNumber: element.sender?.phoneNumber,
+      }
+      result.push(obj)
+
+    });
+
+    return result
+  }
 
   onSelectSender( id: number ) {
     this.router.navigateByUrl(`add-order/${id}`)
