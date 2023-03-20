@@ -2,13 +2,25 @@
     <ng-template pTemplate="header">
         <h3>All Orders</h3>
     </ng-template>
-    <p-table [value]="orders" [tableStyle]="{'min-width': '50rem'}">
+    <p-table #dt 
+            [value]="orders" 
+            [tableStyle]="{'min-width': '50rem'}" 
+            [globalFilterFields]="['id', 'email', 'fname', 'lname', 'phoneNumber']"
+    >
+        <ng-template pTemplate="caption">
+            <div class="flex">
+                <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Search keyword" />
+                </span>
+            </div>
+            </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th>order ID</th>
-                <th>Sender Name</th>
-                <th>Email</th>
-                <th>Phone Number</th>
+                <th pSortableColumn="id">order ID</th>
+                <th pSortableColumn="fname, lname">Sender Name</th>
+                <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+                <th pSortableColumn="phoneNumber">Phone Number</th>
                 <th>Actions</th>
             </tr>
         </ng-template>
@@ -16,9 +28,9 @@
             <tr>
                 <td>{{order.id}}</td>
                 <td (click)="onSelectSender(order.id)"
-                    ngClass="clickable">{{order.sender?.firstName}} {{order.sender?.lastName}}</td>
-                <td>{{order.sender?.email}}</td>
-                <td>{{order.sender?.phoneNumber}}</td>
+                    ngClass="clickable">{{order.fname}} {{order.lname}}</td>
+                <td>{{order.email}}</td>
+                <td>{{order.phoneNumber}}</td>
                 <td>
 					<button pButton 
 							pRipple 
