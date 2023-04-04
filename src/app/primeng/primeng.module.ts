@@ -9,6 +9,8 @@ import {ButtonModule} from 'primeng/button';
 import {OrderListModule} from 'primeng/orderlist';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {ToggleButtonModule} from 'primeng/togglebutton';
+import { ToastModule } from 'primeng/toast';
+import { SidebarModule } from 'primeng/sidebar';
 
 
 
@@ -22,7 +24,9 @@ import {ToggleButtonModule} from 'primeng/togglebutton';
     ButtonModule,
 	  OrderListModule,
     SelectButtonModule,
-    ToggleButtonModule
+    ToggleButtonModule,
+    ToastModule,
+    SidebarModule
   ]
 })
 export class PrimengModule { }

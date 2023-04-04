@@ -21,15 +21,15 @@ export class AddOrderComponent implements OnInit {
   id!: number;
 
   addOrderFormData: FormGroup = this.fb.group({
-    firstName: ['', [Validators.required]],
-		lastName: ['', [Validators.required]],
-    email: ['', [Validators.required, Validators.email]],
-		phoneNumber: ['', [Validators.required]],
-		address: ['', [Validators.required]],
-		city: ['', [Validators.required]],
-		province: ['', [Validators.required]],
-		country: ['', [Validators.required]],
-		zipCode: ['', [Validators.required]],
+    firstName:    ['', [Validators.required]],
+		lastName:     ['', [Validators.required]],
+    email:        ['', [Validators.required, Validators.email, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+		phoneNumber:  ['', [Validators.required]],
+		address:      ['', [Validators.required]],
+		city:         ['', [Validators.required]],
+		province:     ['', [Validators.required]],
+		country:      ['', [Validators.required]],
+		zipCode:      ['', [Validators.required]],
   })
 
   constructor(
@@ -55,15 +55,15 @@ export class AddOrderComponent implements OnInit {
       if(ord) {
         this.order = ord;
         this.addOrderFormData.setValue({
-          firstName: [this.order?.sender?.firstName],
-          lastName: [this.order?.sender?.lastName],
-          email: [this.order?.sender?.email],
-          phoneNumber: [this.order?.sender?.phoneNumber],
-          address: [this.order?.sender?.address],
-          city: [this.order?.sender?.city],
-          province: [this.order?.sender?.province],
-          country: [this.order?.sender?.country],
-          zipCode: [this.order?.sender?.zipCode],
+          firstName:    [this.order?.sender?.firstName],
+          lastName:     [this.order?.sender?.lastName],
+          email:        [this.order?.sender?.email],
+          phoneNumber:  [this.order?.sender?.phoneNumber],
+          address:      [this.order?.sender?.address],
+          city:         [this.order?.sender?.city],
+          province:     [this.order?.sender?.province],
+          country:      [this.order?.sender?.country],
+          zipCode:      [this.order?.sender?.zipCode],
         })
       } else {
         this.addOrderFormData.reset();
@@ -84,7 +84,7 @@ export class AddOrderComponent implements OnInit {
       sender: this.addOrderFormData.value,
       goods: [],
       receiver: null,
-      id: 0,
+      id: this.id ? this.id : 0,
     }
     this.store.dispatch(fromActions.OrderActions.addOrder({order}))
     this.addOrderFormData.reset();

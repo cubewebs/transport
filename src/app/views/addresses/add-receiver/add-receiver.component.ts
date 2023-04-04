@@ -24,7 +24,7 @@ export class AddReceiverComponent implements OnInit {
   addReceiverFormData: FormGroup = this.fb.group({
     	firstName:   ['', [Validators.required]],
 		lastName:    ['', [Validators.required]],
-    	email:     	 ['', [Validators.required, Validators.email]],
+    	email:     	 ['', [Validators.required, Validators.email, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
 		phoneNumber: ['', [Validators.required]],
 		address:     ['', [Validators.required]],
 		city:        ['', [Validators.required]],
@@ -59,7 +59,8 @@ export class AddReceiverComponent implements OnInit {
   ngOnInit(): void {
 
 	setTimeout(() => {
-		this.order = this.orders.find( order => this.orderId == order.id),
+		this.order = this.orders.find( order => this.orderId == order.id);
+		if(this.order?.id !== undefined) {
 			this.addReceiverFormData.setValue({
 				firstName:   this.order?.receiver?.firstName || '',
 				lastName:    this.order?.receiver?.lastName || '',
@@ -71,9 +72,9 @@ export class AddReceiverComponent implements OnInit {
 				country:     this.order?.receiver?.country || '',
 				zipCode:     this.order?.receiver?.zipCode || '',
 			})
+		}
 	}, 100);
-
-	console.log('this.order?.id ->', this.order?.id)
+	
   }
 
   fieldIsInvalid( field: string ) {

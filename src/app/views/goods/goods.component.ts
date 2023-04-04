@@ -51,7 +51,7 @@ export class GoodsComponent implements OnInit {
 	initFormData() {
 		this.packageFormData = this.fb.group({
 			id: [],
-			itemName: ['', Validators.required],
+			itemName: [, Validators.required],
 			dangerGoods: [false],
 			itemDescription: ['', Validators.required],
 			individualWeight: [, Validators.required],
