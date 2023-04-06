@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable, Subject, tap } from 'rxjs';
 import { Good } from '../models/Good.interface';
 
 import { Order } from '../models/Order.model';
@@ -13,9 +13,20 @@ export class OrdersService {
 
   baseUrl: string = 'http://localhost:3000';
 
+  refreshSubject$ = new Subject();
+  openPlausi$ = new Subject();
+
   constructor(
     private http: HttpClient
   ) { }
+
+  deleteRefresh(orders: Order[]) {
+    this.refreshSubject$.next(orders);
+  }
+
+  openPlausiCheck(toggle: boolean) {
+    this.openPlausi$.next(toggle)
+  }
 
   addOrder(order: Order): Observable<Order> {
     const url = `${this.baseUrl}/orders`;

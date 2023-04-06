@@ -11,20 +11,27 @@
             <div class="flex">
                 <span class="p-input-icon-left ml-auto">
                     <i class="pi pi-search"></i>
-                    <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Search keyword" />
+                    <input 
+                        #searchInput
+                        (keyup)="refresh(searchInput)"
+                        pInputText 
+                        type="text" 
+                        (input)="dt.filterGlobal($any($event.target).value, 'contains')" 
+                        placeholder="Search keyword"
+                    />
                 </span>
             </div>
             </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="id">order ID</th>
-                <th pSortableColumn="fname, lname">Sender Name</th>
+                <th pSortableColumn="id">order ID  <p-sortIcon field="id"></p-sortIcon></th>
+                <th pSortableColumn="fname">Sender Name <p-sortIcon field="fname"></p-sortIcon></th>
                 <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
-                <th pSortableColumn="phoneNumber">Phone Number</th>
+                <th pSortableColumn="phoneNumber">Phone Number <p-sortIcon field="phoneNumber"></p-sortIcon></th>
                 <th>Actions</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-order>
+        <ng-template pTemplate="body" let-order let-i="index">
             <tr>
                 <td>{{order.id}}</td>
                 <td (click)="onSelectSender(order.id)"
@@ -38,6 +45,7 @@
 							label="Receiver" 
 							icon="pi pi-file-edit" 
 							iconPos="left"
+                            [ngClass]="{'btnColor': !order.receiver}"
 							(click)="onEditReceiver(order.id)"
 							style="margin-right: 4px"></button>
 					<button pButton 
@@ -46,6 +54,7 @@
 							label="Goods" 
 							icon="pi pi-file-edit" 
 							iconPos="left"
+                            [ngClass]="{'btnColor': !order.isPkg}"
 							(click)="onEditGoods(order.id)"
 							style="margin-right: 4px"></button>
                     <button pButton
@@ -62,7 +71,33 @@
         </ng-template>
     </p-table>
     <ng-template pTemplate="footer">
-        <small>Clic on the order id to edit the order</small>
+        <button pButton 
+        pRipple 
+        type="button" 
+        label="Goods" 
+        icon="pi pi-file-edit" 
+        iconPos="left"
+        [ngClass]="'btnColor'"
+        style="margin-right: 4px"></button>
+        <small>Haga click si el boton esta de color naranja y rellene la información que necesaria</small>
     </ng-template>
 </p-card>
+<div class="card flex justify-content-center">
+
+    <p-sidebar [(visible)]="sidebarVisible" position="right" styleClass="w-28rem">
+        <h4>Validaation Check</h4>
+            <p-toast position="bottom-right" [key]="'plausi'"[baseZIndex]="5000">
+                <ng-template let-message pTemplate="message">
+                    <div class="flex align-content-center" style="flex: 1">
+                        <i class="pi pi-exclamation-circle mr-4" style="font-size: 3rem"></i>
+                        <div class="text-left flex flex-column">
+                            <h4 class="message-title">{{message.summary}}</h4>
+                            <p class="message-content">{{message.detail}}</p>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-toast>
+    </p-sidebar>
+    
+</div>
 

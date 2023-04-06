@@ -21,7 +21,6 @@ export class GoodsComponent implements OnInit {
 	orders$!: Observable<Order[]>;
 	actualOrder!: Observable<Order | undefined>;
 	packageFormData!: FormGroup;
-	// pkgs: Good[] = [];
 	pkgs$!: Observable<Good[]>;
 	selectedPkg?: Good;
 	selectedPkg$!: Observable<Good | undefined>;
@@ -51,12 +50,12 @@ export class GoodsComponent implements OnInit {
 	initFormData() {
 		this.packageFormData = this.fb.group({
 			id: [],
-			itemName: ['', Validators.required],
+			itemName: [, Validators.required],
 			dangerGoods: [false],
 			itemDescription: ['', Validators.required],
 			individualWeight: [, Validators.required],
 			quantity: [, Validators.required],
-			totalWeight: [, Validators.required], //TODO: multiply individualWeight times quantity to get total.
+			totalWeight: [], //TODO: multiply individualWeight times quantity to get total.
 			orderId: [this.orderId, Validators.required]
 		})
 	}
@@ -87,7 +86,7 @@ export class GoodsComponent implements OnInit {
 		this.store.dispatch(OrderActions.getPackages());
 	}
 
-	calcTotalWeight(): number {
+	get calcTotalWeight(): number {
 		return this.individualWeightFild.value * this.quantityFild.value
 	}
 

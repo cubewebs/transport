@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { OrdersService } from 'src/app/services/orders.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,8 +11,11 @@ export class NavbarComponent implements OnInit {
 
 
 	items!: MenuItem[];
+	togglable: boolean = false;
 
-	constructor() {}
+	constructor(
+		private ordersService: OrdersService
+	) {}
 
 	ngOnInit(): void {
 		this.items = [
@@ -28,5 +32,9 @@ export class NavbarComponent implements OnInit {
 		]
 	}
 
+	onPlausi() {
+		
+		this.ordersService.openPlausiCheck(this.togglable = !this.togglable)
+	}
 
 }

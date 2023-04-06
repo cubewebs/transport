@@ -1,5 +1,29 @@
 .clickable {
-    color: #399000;
+    color: #2a2000;
     font-weight: 600;
     cursor: pointer;
+}
+
+.btnColor {
+    background-color: rgb(255, 157, 0);
+    color: white;
+}
+
+.btnColor:hover {
+    background-color: rgba(255, 157, 0, 0.822);
+    color: white;
+}
+
+.message-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.4rem 0;
+    padding: 0;
+}
+
+.message-content {
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
 }

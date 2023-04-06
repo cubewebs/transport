@@ -18,14 +18,6 @@
 				</td>
 			</tr>
 		</table>
-		<!-- <p-orderList [value]="pkgs">
-			<ng-template let-pkg pTemplate="item">
-				<div (click)="selectedPackage(pkg.id)">
-					<span class="p-inputgroup-addon" style="display:inline-block;margin:2px 0 2px 2px" width="48"><i class="pi pi-box"></i></span>
-					<div style="font-size:14px;float:right;margin:15px 5px 0 0">ID: {{pkg.id}} - Name: {{pkg.itemName}} - Quantity: {{pkg.quantity}}</div>
-				</div>
-			</ng-template>
-		</p-orderList> -->
 	</div>
     <div class="col-8">
 		<p-card>
@@ -100,6 +92,7 @@
 								   pInputText 
 								   placeholder="Total Weight"
 								   id="total"
+								   readonly="true"
 								   formControlName="totalWeight">  
 							<span class="p-inputgroup-addon">KG</span>     
 						</div>
