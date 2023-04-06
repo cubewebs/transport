@@ -429,6 +429,16 @@
       "quantity": 10000,
       "totalWeight": null,
       "orderId": 13
+    },
+    {
+      "id": 24,
+      "itemName": "Glue",
+      "dangerGoods": true,
+      "itemDescription": "Flammable",
+      "individualWeight": 0.03,
+      "quantity": 12500,
+      "totalWeight": null,
+      "orderId": 14
     }
   ]
 }
