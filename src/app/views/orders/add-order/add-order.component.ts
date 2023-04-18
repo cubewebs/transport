@@ -86,9 +86,16 @@ export class AddOrderComponent implements OnInit {
       receiver: null,
       id: this.id ? this.id : 0,
     }
+    console.log('order ->', order)
     this.store.dispatch(fromActions.OrderActions.addOrder({order}))
     this.addOrderFormData.reset();
-    this.router.navigateByUrl(`add-receiver/${order.id}`)
+    this.store.select(selectAllOrders).subscribe(
+      orders => {
+        this.order = orders.find(o => o._id === order._id);
+        this.router.navigateByUrl(`add-receiver/${this.order?.id}`);
+        console.log('this.order ->', this.order)
+      }
+    )
   }
 
 }

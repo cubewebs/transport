@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { map, Observable, Subject, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, Subject, tap } from 'rxjs';
 import { Good } from '../models/Good.interface';
 
 import { Order } from '../models/Order.model';
@@ -15,6 +15,7 @@ export class OrdersService {
 
   refreshSubject$ = new Subject();
   openPlausi$ = new Subject();
+  missingData = new BehaviorSubject(false);
 
   constructor(
     private http: HttpClient
@@ -26,6 +27,10 @@ export class OrdersService {
 
   openPlausiCheck(toggle: boolean) {
     this.openPlausi$.next(toggle)
+  }
+
+  onShowInfo(data: any) {
+    this.missingData.next(data);
   }
 
   addOrder(order: Order): Observable<Order> {

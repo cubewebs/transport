@@ -12,6 +12,7 @@ export class NavbarComponent implements OnInit {
 
 	items!: MenuItem[];
 	togglable: boolean = false;
+	showInfo: boolean = false;
 
 	constructor(
 		private ordersService: OrdersService
@@ -30,11 +31,23 @@ export class NavbarComponent implements OnInit {
 				routerLink: 'add-order'
 			}
 		]
+
+		this.ordersService.missingData.subscribe( data => {
+			if(data) {
+				this.showInfo = true;
+			} else {
+				this.showInfo = false;
+			}
+		});
+
 	}
 
 	onPlausi() {
 		
-		this.ordersService.openPlausiCheck(this.togglable = !this.togglable)
+		this.ordersService.openPlausiCheck(this.togglable = true)
+
 	}
+
+	
 
 }

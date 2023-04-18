@@ -1,110 +1,117 @@
-<h4>Order ID: {{orderId}}</h4>
-<div class="grid mt-5">
-    <div class="col-4">
-		<div class="flex justify-content-center mb-2">
-			<button pButton pRipple type="button" label="Add Package" class="p-button-success" (click)="addNewPackage()"></button>
+<p-card>
+	<ng-template pTemplate="header">
+        <h3 *ngIf="!selectedPkg">Step 3: Add the goods data</h3>
+        <h3 *ngIf="selectedPkg">Edit the goods data</h3>
+    </ng-template>
+	<h4>Order ID: {{orderId}}</h4>
+	<div class="grid mt-5">
+		<div class="col-4">
+			<div class="flex justify-content-center mb-2">
+				<button pButton pRipple type="button" label="Add Package" class="p-button-success" (click)="addNewPackage()"></button>
+			</div>
+			<table class="table-wrap">
+				<tr>
+					<th class="th-title">Order's Packages</th>
+				</tr>
+				<tr>
+					<td *ngFor="let pkg of pkgs$ | async" class="flex" [class.active]="selectedPkg?.id === pkg.id ? true : false">
+						<button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="deletePkg(pkg.id)"></button>
+						<div (click)="selectedPackage(pkg.id)" class="table-item">
+							<span class="p-inputgroup-addon" style="display:inline-block;margin:2px 10px 2px 12px" width="48"><i class="pi pi-box"></i></span>
+							<div style="font-size:14px;float:right;margin:15px 5px 0 0">ID: {{pkg.id}} - Name: {{pkg.itemName}} - Quantity: {{pkg.quantity}}</div>
+						</div>
+					</td>
+				</tr>
+			</table>
 		</div>
-		<table class="table-wrap">
-			<tr>
-				<th class="th-title">Order's Packages</th>
-			</tr>
-			<tr>
-				<td *ngFor="let pkg of pkgs$ | async" class="flex" [class.active]="selectedPkg?.id === pkg.id ? true : false">
-					<button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="deletePkg(pkg.id)"></button>
-					<div (click)="selectedPackage(pkg.id)" class="table-item">
-						<span class="p-inputgroup-addon" style="display:inline-block;margin:2px 10px 2px 12px" width="48"><i class="pi pi-box"></i></span>
-						<div style="font-size:14px;float:right;margin:15px 5px 0 0">ID: {{pkg.id}} - Name: {{pkg.itemName}} - Quantity: {{pkg.quantity}}</div>
-					</div>
-				</td>
-			</tr>
-		</table>
-	</div>
-    <div class="col-8">
-		<p-card>
-			<h3>Package to <span *ngIf="selectedPkgId">Update</span><span *ngIf="!selectedPkgId">Save</span></h3>
-
-			<form [formGroup]="packageFormData" (submit)="addPackage()">
-
-				<div class="grid p-fluid">			
-					<div class="col-12 md:col-10">
-						<div class="field">
-							<label for="item" class="block">Item Name</label>
-							<input type="text" 
-								   pInputText 
-								   id="item"
-								   placeholder="Item"
-								   formControlName="itemName">       
+		<div class="col-8">
+			<p-card>
+				<h3>Package to <span *ngIf="selectedPkgId">Update</span><span *ngIf="!selectedPkgId">Save</span></h3>
+	
+				<form [formGroup]="packageFormData" (submit)="addPackage()">
+	
+					<div class="grid p-fluid">			
+						<div class="col-12 md:col-10">
+							<div class="field">
+								<label for="item" class="block">Item Name</label>
+								<input type="text" 
+									   pInputText 
+									   id="item"
+									   placeholder="Item"
+									   formControlName="itemName">       
+							</div>
+						</div>
+	
+						<div class="col-12 md:col-2">
+							<label for="danger" class="block" style="margin-bottom:8px;">Is Danger Goods?</label>
+							<p-toggleButton formControlName="dangerGoods" 
+											onLabel="Yes" 
+											offLabel="No" 
+											offIcon="pi pi-times"
+											onIcon="pi pi-check"
+											[style]="{'width': '10em'}"
+											id="danger"></p-toggleButton>
+						</div>
+								
+						<div class="col-12 md:col-12" *ngIf="dangerGoodsFild.value">
+							<div class="field">
+								<label for="item" class="block">Item Description</label>
+								<input type="text" 
+									   pInputText
+									   id="item" 
+									   placeholder="Description"
+									   formControlName="itemDescription">      
+							</div>
 						</div>
 					</div>
-
-					<div class="col-12 md:col-2">
-						<label for="danger" class="block" style="margin-bottom:8px;">Is Danger Goods?</label>
-						<p-toggleButton formControlName="dangerGoods" 
-										onLabel="Yes" 
-										offLabel="No" 
-										offIcon="pi pi-times"
-										onIcon="pi pi-check"
-										[style]="{'width': '10em'}"
-										id="danger"></p-toggleButton>
-					</div>
-							
-					<div class="col-12 md:col-12" *ngIf="dangerGoodsFild.value">
-						<div class="field">
-							<label for="item" class="block">Item Description</label>
-							<input type="text" 
-								   pInputText
-								   id="item" 
-								   placeholder="Description"
-								   formControlName="itemDescription">      
+	
+					<div class="grid p-fluid">
+						<div class="col-12 md:col-4">
+							<div class="p-inputgroup">
+								<span class="p-inputgroup-addon"><i class="pi pi-tag"></i></span>
+								<input type="number" 
+									   pInputText 
+									   placeholder="Single item weight"
+									   id="weight"
+									   formControlName="individualWeight">   
+								<span class="p-inputgroup-addon">KG</span>      
+							</div>
+						</div>
+								
+						<div class="col-12 md:col-4">
+							<div class="p-inputgroup">
+								<span class="p-inputgroup-addon"><i class="pi pi-hashtag"></i></span>
+								<input type="number" 
+									   pInputText 
+									   placeholder="Quantity"
+									   id="qty"
+									   formControlName="quantity">  
+								<span class="p-inputgroup-addon">items</span>         
+							</div>
+						</div>
+						
+						<div class="col-12 md:col-4">
+							<div class="p-inputgroup">
+								<span class="p-inputgroup-addon"><i class="pi pi-calculator"></i></span>
+								<input type="number" 
+									   pInputText 
+									   placeholder="Total Weight"
+									   id="total"
+									   readonly="true"
+									   formControlName="totalWeight">  
+								<span class="p-inputgroup-addon">KG</span>     
+							</div>
 						</div>
 					</div>
-				</div>
-
-				<div class="grid p-fluid">
-					<div class="col-12 md:col-4">
-						<div class="p-inputgroup">
-							<span class="p-inputgroup-addon"><i class="pi pi-tag"></i></span>
-							<input type="number" 
-								   pInputText 
-								   placeholder="Single item weight"
-								   id="weight"
-								   formControlName="individualWeight">   
-							<span class="p-inputgroup-addon">KG</span>      
-						</div>
-					</div>
-							
-					<div class="col-12 md:col-4">
-						<div class="p-inputgroup">
-							<span class="p-inputgroup-addon"><i class="pi pi-hashtag"></i></span>
-							<input type="number" 
-								   pInputText 
-								   placeholder="Quantity"
-								   id="qty"
-								   formControlName="quantity">  
-							<span class="p-inputgroup-addon">items</span>         
-						</div>
+	
+					<div class="flex justify-content-end mt-4">
+						<button *ngIf="!selectedPkgId" pButton pRipple type="submit" label="Save" class="p-button-success"></button>
+						<button *ngIf="selectedPkgId" pButton pRipple type="button" label="Update" class="p-button-success" (click)="updatePackage()"></button>
 					</div>
 					
-					<div class="col-12 md:col-4">
-						<div class="p-inputgroup">
-							<span class="p-inputgroup-addon"><i class="pi pi-calculator"></i></span>
-							<input type="number" 
-								   pInputText 
-								   placeholder="Total Weight"
-								   id="total"
-								   readonly="true"
-								   formControlName="totalWeight">  
-							<span class="p-inputgroup-addon">KG</span>     
-						</div>
-					</div>
-				</div>
-
-				<div class="flex justify-content-end mt-4">
-					<button *ngIf="!selectedPkgId" pButton pRipple type="submit" label="Save" class="p-button-success"></button>
-					<button *ngIf="selectedPkgId" pButton pRipple type="button" label="Update" class="p-button-success" (click)="updatePackage()"></button>
-				</div>
-				
-			</form>
-		</p-card>
+				</form>
+			</p-card>
+		</div>
 	</div>
-</div>
+	
+</p-card>

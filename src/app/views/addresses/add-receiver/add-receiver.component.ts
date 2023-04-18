@@ -94,6 +94,7 @@ export class AddReceiverComponent implements OnInit {
 	this.store.dispatch(fromActions.OrderActions.updateOrder({id: this.orderId, order: changes}));
 	// this.os.updateOrderById(this.orderId, changes)
 	// .subscribe( order => console.log('order ->', changes));
+	console.log('this.orderId ->', this.orderId)
 	this.addReceiverFormData.reset();
 	this.router.navigateByUrl(`goods/${this.orderId}`)
   }

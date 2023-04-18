@@ -35,15 +35,14 @@
             <tr>
                 <td>{{order.id}}</td>
                 <td (click)="onSelectSender(order.id)"
-                    ngClass="clickable">{{order.fname}} {{order.lname}}</td>
+                    ngClass="clickable"><p-chip label="{{order.fname}} {{order.lname}}" icon="pi pi-arrow-up-right"></p-chip></td>
                 <td>{{order.email}}</td>
                 <td>{{order.phoneNumber}}</td>
                 <td>
 					<button pButton 
 							pRipple 
 							type="button" 
-							label="Receiver" 
-							icon="pi pi-file-edit" 
+							icon="pi pi-arrow-down-right" 
 							iconPos="left"
                             [ngClass]="{'btnColor': !order.receiver}"
 							(click)="onEditReceiver(order.id)"
@@ -51,8 +50,7 @@
 					<button pButton 
 							pRipple 
 							type="button" 
-							label="Goods" 
-							icon="pi pi-file-edit" 
+							icon="pi pi-box" 
 							iconPos="left"
                             [ngClass]="{'btnColor': !order.isPkg}"
 							(click)="onEditGoods(order.id)"
@@ -60,7 +58,6 @@
                     <button pButton
                             pRipple 
                             type="button" 
-                            label="Delete" 
                             icon="pi pi-trash" 
                             iconPos="left" 
                             class="p-button-danger"
@@ -86,17 +83,23 @@
 
     <p-sidebar [(visible)]="sidebarVisible" position="right" styleClass="w-28rem">
         <h4>Validaation Check</h4>
-            <p-toast position="bottom-right" [key]="'plausi'"[baseZIndex]="5000">
-                <ng-template let-message pTemplate="message">
-                    <div class="flex align-content-center" style="flex: 1">
-                        <i class="pi pi-exclamation-circle mr-4" style="font-size: 3rem"></i>
-                        <div class="text-left flex flex-column">
-                            <h4 class="message-title">{{message.summary}}</h4>
-                            <p class="message-content">{{message.detail}}</p>
-                        </div>
-                    </div>
-                </ng-template>
-            </p-toast>
+            <ng-container *ngFor="let message of messages">
+                <p-accordion class="w-full">
+                    <p-accordionTab>
+                        <ng-template pTemplate="header">
+                            <div class="flex align-items-center">
+                                <i class="pi pi-info-circle mr-2"></i>
+                                <span class="vertical-align-middle">{{message.summary}}</span>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="content">
+                            <p class="m-0">
+                                {{message.detail}}
+                            </p>
+                        </ng-template>
+                    </p-accordionTab>
+                </p-accordion>
+            </ng-container>
     </p-sidebar>
     
 </div>

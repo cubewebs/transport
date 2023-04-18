@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Order } from 'src/app/models/Order.model';
 import * as fromSelectors from '../../+store/order.selectors';
@@ -27,11 +27,12 @@ interface FlattenFlattenResponseList {
   styleUrls: ['./orders.component.css'],
   providers: [MessageService]
 })
-export class OrdersComponent implements OnInit{
+export class OrdersComponent implements OnInit, AfterViewInit {
 
   orders: FlattenFlattenResponseList[] = [];
   pkgsId: number[] = [];
   sidebarVisible: boolean = false;
+  messages: any = [];
 
   constructor(
     private store: Store<AppState>,
@@ -41,6 +42,11 @@ export class OrdersComponent implements OnInit{
   ) { 
     
   }
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.showMultiple();
+    }, 600);
+  }
     
   ngOnInit(): void {
 
@@ -49,22 +55,21 @@ export class OrdersComponent implements OnInit{
     this.store.select<Order[]>(fromSelectors.selectAllOrders).pipe(
       map( o => this.flattenResponse(o)),
     ).subscribe( o => this.orders = o );
-    setTimeout(() => {
-      console.log('this.orders ->', this.orders)
-    }, 300);
 
     this.store.dispatch(fromActions.OrderActions.getPackages());
 
     this.store.select(fromSelectors.selectAllPackages).subscribe( p => p.map( i => this.pkgsId.push(i.orderId)))
 
-
+    this.ordersServicce.onShowInfo(this.messages);
 
     this.ordersServicce.openPlausi$.subscribe( toggle => {
+
       if(toggle) {
-        setTimeout(() => {
-          this.showMultiple();
-        }, 900);
+
+        this.sidebarVisible = true;
+        
       }
+
     })
 
   }
@@ -80,6 +85,7 @@ export class OrdersComponent implements OnInit{
     let result: any = [];
 
     setTimeout(() => {
+
       res.forEach((element: any) => {
 
         let obj = {
@@ -94,6 +100,7 @@ export class OrdersComponent implements OnInit{
         result.push(obj)
   
       });
+
     }, 300);
 
     return result
@@ -117,17 +124,21 @@ export class OrdersComponent implements OnInit{
   }
 
   showMultiple() {
-    this.sidebarVisible = true;
-    const messages: any = []
+
     this.orders.forEach( o => {
+
       if(!o.receiver){
-        messages.push({ life: 9999000000000, key: 'plausi', severity: 'error', summary: `Missing Receiver`, detail: `${o.fname} ${o.lname} you need to enter a receiver for your order` })
+        this.messages.push({ life: 9999000000000, key: 'plausi', severity: 'error', summary: `Missing Receiver`, detail: `${o.fname} ${o.lname} you need to enter a receiver for your order` })
       }
+
       if(!o.isPkg) {
-        messages.push({ life: 9999000000000, key: 'plausi', severity: 'error', summary: `Missing Goods`, detail: `${o.fname} ${o.lname} you need to enter the goods for your order` })
+        this.messages.push({ life: 9999000000000, key: 'plausi', severity: 'error', summary: `Missing Goods`, detail: `${o.fname} ${o.lname} you need to enter the goods for your order` })
       }
+
     })
-    this.ms.addAll(messages);
+
+    this.ms.addAll(this.messages);
+
   }
 
 }

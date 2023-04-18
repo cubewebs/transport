@@ -1,6 +1,7 @@
 <p-card>
     <ng-template pTemplate="header">
-        <h3>Step 2: Add the receiver data</h3>
+        <h3 *ngIf="!order?.receiver?.firstName">Step 2: Add the receiver data</h3>
+        <h3 *ngIf="order?.receiver?.firstName">Edit the receiver data</h3>
     </ng-template>
     <form [formGroup]="addReceiverFormData" (submit)="addNewReceiver()">
         <div class="grid p-fluid">
@@ -147,6 +148,6 @@
         </div>
     </form>
     <ng-template pTemplate="footer">
-        Make sure all fields are fild in
+        Make sure all fields are filled in
     </ng-template>
 </p-card>

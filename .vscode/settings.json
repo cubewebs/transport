@@ -1,4 +1,9 @@
 {
     "editor.indentSize": "tabSize",
     "material-icon-theme.activeIconPack": "nest",
+    "editor.guides.bracketPairs": "active",
+    "editor.cursorBlinking": "expand",
+    "editor.cursorSmoothCaretAnimation": "on",
+    "workbench.settings.editor": "json",
+    "workbench.settings.useSplitJSON": true,
 }

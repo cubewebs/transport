@@ -11,6 +11,8 @@ import {SelectButtonModule} from 'primeng/selectbutton';
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import { ToastModule } from 'primeng/toast';
 import { SidebarModule } from 'primeng/sidebar';
+import { ChipModule } from 'primeng/chip';
+import { AccordionModule } from 'primeng/accordion';
 
 
 
@@ -26,7 +28,9 @@ import { SidebarModule } from 'primeng/sidebar';
     SelectButtonModule,
     ToggleButtonModule,
     ToastModule,
-    SidebarModule
+    SidebarModule,
+    ChipModule,
+    AccordionModule
   ]
 })
 export class PrimengModule { }

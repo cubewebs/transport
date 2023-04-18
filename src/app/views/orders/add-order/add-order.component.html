@@ -1,6 +1,7 @@
 <p-card>
     <ng-template pTemplate="header">
-        <h3>Make a new order</h3>
+        <h3 *ngIf="!order?._id">Make a new order</h3>
+        <h3 *ngIf="order?._id">Edit your order</h3>
     </ng-template>
     <form [formGroup]="addOrderFormData" (submit)="addNewOrder()">
         <div class="grid p-fluid">
