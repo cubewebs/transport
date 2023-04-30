@@ -17,3 +17,8 @@ export const selectAllPackages = createSelector(
     return state.pkgs
   }
 )
+
+export const selectOrder = createSelector(
+  selectOrdersFeature,
+  (state: FeatureState) => state.order
+)

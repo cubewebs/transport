@@ -90,6 +90,7 @@ export class AddReceiverComponent implements OnInit {
 		_id: this.order!._id,
 		goods: this.order!.goods,
 		sender: this.order!.sender,
+		state: this.order!.state
 	}
 	this.store.dispatch(fromActions.OrderActions.updateOrder({id: this.orderId, order: changes}));
 	// this.os.updateOrderById(this.orderId, changes)

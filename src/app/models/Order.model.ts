@@ -10,4 +10,5 @@ export interface Order {
 	goods?: Good[];
 	receiver?: Receiver | null;
 	id: number;
+	state: number;
 }

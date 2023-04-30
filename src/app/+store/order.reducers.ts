@@ -8,11 +8,13 @@ import { Good } from '../models/Good.interface';
 
 export interface AppState {
   orders: FeatureState;
+  order: FeatureState;
   pkgs: FeatureState;
 }
 
 export const initialState: FeatureState = {
   orders: [],
+  order: null,
   pkgs: [],
 };
 
@@ -20,7 +22,8 @@ export const orderInitialState: Order = {
   _id: 0,
   sender: null,
   receiver: null,
-  id: 0
+  id: 0,
+  state: 0
 }
 
 export const goodInitialState: Good = {
@@ -88,6 +91,15 @@ export const ordersReducer = createReducer(
     {...state, orders}
   )),
   on(fromActions.OrderActions.getAllOrdersError, (state, {error}) => (
+    {...state, error}
+  )),
+  on(fromActions.OrderActions.getOrder, (state) => (
+    {...state}
+  )),
+  on(fromActions.OrderActions.getOrderSuccess, (state, {order}) => (
+    {...state, order}
+  )),
+  on(fromActions.OrderActions.getOrderError, (state, {error}) => (
     {...state, error}
   )),
   on(fromActions.OrderActions.getPackages, (state) => (

@@ -25,7 +25,8 @@
         "province": "Alicante",
         "country": "España",
         "zipCode": "46855"
-      }
+      },
+      "status": 1
     },
     {
       "receiver": {
@@ -52,7 +53,8 @@
         "province": "Santa Cruz De Tenerife",
         "country": "España",
         "zipCode": 38660
-      }
+      },
+      "status": 2
     },
     {
       "_id": 1672173843011,
@@ -96,7 +98,8 @@
         "province": "Tenerife",
         "country": "España",
         "zipCode": 38567
-      }
+      },
+      "status": 3
     },
     {
       "receiver": {
@@ -123,7 +126,8 @@
         "province": "Cádiz",
         "country": "España",
         "zipCode": 6374
-      }
+      },
+      "status": 1
     },
     {
       "receiver": {
@@ -150,7 +154,8 @@
         "province": "Granada",
         "country": "España",
         "zipCode": 34228
-      }
+      },
+      "status": 2
     },
     {
       "_id": 1680367562144,
@@ -167,7 +172,8 @@
       },
       "goods": [],
       "receiver": null,
-      "id": 14
+      "id": 14,
+      "status": 3
     }
   ],
   "goods": [

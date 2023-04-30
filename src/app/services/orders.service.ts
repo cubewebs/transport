@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject, map, Observable, Subject, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, Subject, take, tap } from 'rxjs';
 import { Good } from '../models/Good.interface';
 
 import { Order } from '../models/Order.model';
@@ -16,6 +16,7 @@ export class OrdersService {
   refreshSubject$ = new Subject();
   openPlausi$ = new Subject();
   missingData = new BehaviorSubject(false);
+  copyOrder$ = new BehaviorSubject<number | null>(null);
 
   constructor(
     private http: HttpClient
@@ -49,7 +50,7 @@ export class OrdersService {
             .pipe(map((orders) => orders || []))
   }
 
-  getOrderById(id: number): Observable<Order> {
+  getOrderById(id: number | null): Observable<Order> {
     const url = `${this.baseUrl}/orders/${id}`;
     return this.http.get<Order>( url )
   }
@@ -77,6 +78,10 @@ export class OrdersService {
   deletePackage( id: number ): Observable<Good> {
     const url = `${this.baseUrl}/goods/${id}`;
     return this.http.delete<Good>( url )
+  }
+
+  copyTemplate( id: number) {
+    this.copyOrder$.next(id)
   }
 
 }

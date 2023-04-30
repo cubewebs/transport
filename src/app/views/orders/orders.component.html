@@ -33,7 +33,11 @@
         </ng-template>
         <ng-template pTemplate="body" let-order let-i="index">
             <tr>
-                <td>{{order.id}}</td>
+                <td>
+                    <div class="flex align-center">
+                        <div class="statusCircle"></div>&nbsp;{{order.id}}
+                    </div>
+                </td>
                 <td (click)="onSelectSender(order.id)"
                     ngClass="clickable"><p-chip label="{{order.fname}} {{order.lname}}" icon="pi pi-arrow-up-right"></p-chip></td>
                 <td>{{order.email}}</td>
@@ -63,6 +67,14 @@
                             class="p-button-danger"
                             (click)="onDeleteOrder(order.id)" 
                             style="margin-right: 4px"></button>
+                    <button pButton 
+							pRipple 
+							type="button" 
+							icon="pi pi-copy" 
+							iconPos="left"
+                            routerLink="/add-order"
+							(click)="onCopyTemplate(order.id)"
+							style="margin-right: 4px"></button>
 				</td>
             </tr>
         </ng-template>

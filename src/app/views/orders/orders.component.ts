@@ -5,13 +5,13 @@ import * as fromSelectors from '../../+store/order.selectors';
 import * as fromActions from '../../+store/order.actions';
 import { AppState } from 'src/app/+store/order.reducers';
 import { map, Observable, of, tap } from 'rxjs';
-import { pluck } from 'rxjs/operators';
+import { delay, pluck, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Receiver } from 'src/app/models/Receiver.interface';
 import { OrdersService } from 'src/app/services/orders.service';
 
-interface FlattenFlattenResponseList {
+interface FlattenResponseList {
   id: number,
   fname: string,
   lname: string,
@@ -19,6 +19,7 @@ interface FlattenFlattenResponseList {
   phoneNumber: string,
   receiver: Receiver,
   isPkg: boolean,
+  state: number,
 }
 
 @Component({
@@ -29,10 +30,11 @@ interface FlattenFlattenResponseList {
 })
 export class OrdersComponent implements OnInit, AfterViewInit {
 
-  orders: FlattenFlattenResponseList[] = [];
+  orders: FlattenResponseList[] = [];
   pkgsId: number[] = [];
   sidebarVisible: boolean = false;
   messages: any = [];
+  colorArray: string[] = [];
 
   constructor(
     private store: Store<AppState>,
@@ -54,7 +56,11 @@ export class OrdersComponent implements OnInit, AfterViewInit {
 
     this.store.select<Order[]>(fromSelectors.selectAllOrders).pipe(
       map( o => this.flattenResponse(o)),
-    ).subscribe( o => this.orders = o );
+    ).subscribe( o => {
+      this.orders = o;
+    } );
+
+    this.showStatus();
 
     this.store.dispatch(fromActions.OrderActions.getPackages());
 
@@ -95,7 +101,8 @@ export class OrdersComponent implements OnInit, AfterViewInit {
           email: element.sender?.email,
           phoneNumber: element.sender?.phoneNumber,
           receiver: element.receiver,
-          isPkg: this.pkgsId.includes(element.id)
+          isPkg: this.pkgsId.includes(element.id),
+          status: element.status ? element.status : 3
         }
         result.push(obj)
   
@@ -123,6 +130,11 @@ export class OrdersComponent implements OnInit, AfterViewInit {
     this.ngOnInit();
   }
 
+  onCopyTemplate(id: number) {
+    const copiedOrder = this.orders.filter( order => order.id === id)
+    this.ordersServicce.copyTemplate(id)
+  }
+
   showMultiple() {
 
     this.orders.forEach( o => {
@@ -139,6 +151,36 @@ export class OrdersComponent implements OnInit, AfterViewInit {
 
     this.ms.addAll(this.messages);
 
+  }
+
+  showStatus() {
+    setTimeout(() => {
+      if(this.orders) {
+        this.orders.forEach((element: any) => {
+          this.colorArray.push(this.getStatusColor(element.status))
+        });
+        this.orders.forEach((el: any, i: number) => {
+          let colorDiv = document.getElementsByClassName('statusCircle')[i];
+          colorDiv.classList.add(this.colorArray[i])
+        })
+      }
+    }, 500);
+  }
+
+  getStatusColor(state: number) {
+    switch (state) {
+      case 1:
+        return 'bgGreen';
+      
+      case 2:
+        return 'bgYellow';
+
+      case 3:
+        return 'bgRed'
+    
+      default:
+        return 'bgGray';
+    }
   }
 
 }
