@@ -112,6 +112,7 @@ export class GoodsComponent implements OnInit {
 	}
 
 	updatePackage() {
+		console.log('this.packageFormData.value ->', this.packageFormData.value)
 		this.store.dispatch(OrderActions.updatePackage({id: this.selectedPkg!.id,  pkg: this.packageFormData.value}));
 		this.store.dispatch(OrderActions.getPackages());
 	}

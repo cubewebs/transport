@@ -57,7 +57,20 @@
       "status": 2
     },
     {
+      "receiver": {
+        "firstName": "Virginia",
+        "lastName": "Lloyds",
+        "email": "vir@lloyds.com",
+        "phoneNumber": "34566787",
+        "address": "Riverband Rd. 3",
+        "city": "Virginia Beach",
+        "province": "Virginia",
+        "country": "United States",
+        "zipCode": 56678
+      },
+      "id": 6,
       "_id": 1672173843011,
+      "goods": [],
       "sender": {
         "firstName": "Ana",
         "lastName": "Mena",
@@ -68,10 +81,7 @@
         "province": "Alicante",
         "country": "España",
         "zipCode": 74832
-      },
-      "goods": [],
-      "receiver": null,
-      "id": 6
+      }
     },
     {
       "receiver": {
@@ -158,7 +168,20 @@
       "status": 2
     },
     {
+      "receiver": {
+        "firstName": "Miguel",
+        "lastName": "Marlon",
+        "email": "marmi@mail.com",
+        "phoneNumber": "647483929",
+        "address": "Calle Pomodoro",
+        "city": "Parma",
+        "province": "Baleares",
+        "country": "España",
+        "zipCode": 4338
+      },
+      "id": 14,
       "_id": 1680367562144,
+      "goods": [],
       "sender": {
         "firstName": "Dannann",
         "lastName": "Castro",
@@ -169,11 +192,7 @@
         "province": "Montevideo",
         "country": "Argentina",
         "zipCode": 43228
-      },
-      "goods": [],
-      "receiver": null,
-      "id": 14,
-      "status": 3
+      }
     }
   ],
   "goods": [
@@ -279,7 +298,7 @@
     {
       "id": 21,
       "itemName": "Wooden tables",
-      "dangerGoods": true,
+      "dangerGoods": false,
       "itemDescription": "The paint is toxic if ingested",
       "individualWeight": 12.55,
       "quantity": 750,
@@ -305,6 +324,26 @@
       "quantity": 12500,
       "totalWeight": null,
       "orderId": 14
+    },
+    {
+      "id": 25,
+      "itemName": "Chairs",
+      "dangerGoods": true,
+      "itemDescription": "The paint is toxic if ingested",
+      "individualWeight": 1.9,
+      "quantity": 158,
+      "totalWeight": 300.2,
+      "orderId": 6
+    },
+    {
+      "id": 26,
+      "itemName": "Clouset",
+      "dangerGoods": true,
+      "itemDescription": "The paint is toxic if ingested",
+      "individualWeight": 12.3,
+      "quantity": 88,
+      "totalWeight": null,
+      "orderId": 7
     }
   ]
 }

@@ -20,7 +20,9 @@ export class AddOrderComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
   orders!: Order[];
   order?: Order;
-  id!: number;
+  id: number | null = null;
+  copy: boolean = false;
+  newOrderClicked: boolean = false;
 
   addOrderFormData: FormGroup = this.fb.group({
     firstName:    ['', [Validators.required]],
@@ -48,6 +50,8 @@ export class AddOrderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
+    this.addOrderFormData.reset()
+
     this.store.dispatch(fromActions.OrderActions.getAllOrders());
 
     this.subs.push(
@@ -55,7 +59,7 @@ export class AddOrderComponent implements OnInit, OnDestroy {
         this.id = Number(params.get('id'));
       })
     )
-
+    
     this.subs.push(
       this.store.select(selectAllOrders)
       .pipe(
@@ -81,10 +85,9 @@ export class AddOrderComponent implements OnInit, OnDestroy {
       })
     )
 
-    if(this.id === 0) {
+    this.copyOrder();
       
-      this.copyOrder();
-    }
+    this.newOrderMenuClicked();
 
   }
 
@@ -95,7 +98,7 @@ export class AddOrderComponent implements OnInit, OnDestroy {
   }
 
   addNewOrder() {
-    console.log('this.id ->', this.id)
+    
     const order: Order = {
       _id: Number(new Date()),
       sender: this.addOrderFormData.value,
@@ -104,19 +107,18 @@ export class AddOrderComponent implements OnInit, OnDestroy {
       id: this.id ? this.id : 0,
       state: 1
     }
-    console.log('addNewOrder ->', order)
+    
     this.store.dispatch(fromActions.OrderActions.addOrder({order}))
     this.addOrderFormData.reset();
     this.subs.push(
       this.store.select(selectAllOrders).subscribe(
         orders => {
-          console.log('orders ->', orders)
           this.order = orders.find(o => o._id === order._id);
           this.router.navigateByUrl(`add-receiver/${this.order?.id}`);
-          console.log('this.order ->', this.order)
         }
       )
     )
+
   }
 
   copyOrder() {
@@ -131,7 +133,6 @@ export class AddOrderComponent implements OnInit, OnDestroy {
       
       this.store.select(fromSelectors.selectOrder).subscribe(order => {
         if(order) {
-          console.log('order ->', order)
           const orderValues = {
             firstName: order.sender?.firstName,
             lastName: order.sender?.lastName,
@@ -149,6 +150,25 @@ export class AddOrderComponent implements OnInit, OnDestroy {
         } else {return}
       })
 
+    )
+  }
+
+  newOrderMenuClicked() {
+    this.subs.push(
+      this.ordersService.newOrderClick.subscribe(clicked => {
+        this.newOrderClicked = clicked;
+        console.log('clicked ->', this.newOrderClicked)
+        setTimeout(() => {
+          if(clicked === true) {
+            this.addOrderFormData.reset()
+            this.newOrderClicked = false;
+          } else {
+            this.addOrderFormData.markAllAsTouched()
+            this.newOrderClicked = false;
+            return;
+          }
+        }, 50);
+      })
     )
   }
 

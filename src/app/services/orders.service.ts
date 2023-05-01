@@ -17,6 +17,7 @@ export class OrdersService {
   openPlausi$ = new Subject();
   missingData = new BehaviorSubject(false);
   copyOrder$ = new BehaviorSubject<number | null>(null);
+  newOrderClick = new BehaviorSubject<boolean>(false);
 
   constructor(
     private http: HttpClient
@@ -32,6 +33,10 @@ export class OrdersService {
 
   onShowInfo(data: any) {
     this.missingData.next(data);
+  }
+
+  onNewOrderClick(newOrder: boolean) {
+    this.newOrderClick.next(newOrder)
   }
 
   addOrder(order: Order): Observable<Order> {

@@ -131,7 +131,6 @@ export class OrdersComponent implements OnInit, AfterViewInit {
   }
 
   onCopyTemplate(id: number) {
-    const copiedOrder = this.orders.filter( order => order.id === id)
     this.ordersServicce.copyTemplate(id)
   }
 
