@@ -316,16 +316,6 @@
       "orderId": 13
     },
     {
-      "id": 24,
-      "itemName": "Glue",
-      "dangerGoods": true,
-      "itemDescription": "Flammable",
-      "individualWeight": 0.03,
-      "quantity": 12500,
-      "totalWeight": null,
-      "orderId": 14
-    },
-    {
       "id": 25,
       "itemName": "Chairs",
       "dangerGoods": true,

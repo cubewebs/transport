@@ -157,7 +157,6 @@ export class AddOrderComponent implements OnInit, OnDestroy {
     this.subs.push(
       this.ordersService.newOrderClick.subscribe(clicked => {
         this.newOrderClicked = clicked;
-        console.log('clicked ->', this.newOrderClicked)
         setTimeout(() => {
           if(clicked === true) {
             this.addOrderFormData.reset()
