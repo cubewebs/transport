@@ -50,7 +50,6 @@ export class AddOrderComponent implements OnInit {
 
     this.route.paramMap.subscribe((params) => {
       this.id = Number(params.get('id'));
-      console.log('this.id ->', this.id);
     });
 
     this.store
