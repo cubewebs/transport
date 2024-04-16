@@ -1,9 +1,10 @@
 {
   "name": "transport",
   "version": "0.0.0",
+  "main": "index.js",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node index.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -32,6 +33,7 @@
     "@ngrx/effects": "^15.0.0",
     "@ngrx/store": "^15.0.0",
     "@ngrx/store-devtools": "^15.0.0",
+    "json-server": "^1.0.0-alpha.23",
     "primeflex": "^3.3.0",
     "primeicons": "^6.0.1",
     "primeng": "^14.2.3",
